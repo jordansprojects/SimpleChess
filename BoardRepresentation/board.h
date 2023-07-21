@@ -4,20 +4,27 @@
 #include "pieces.h"
 #include <bitset>
 
-enum Type{
-	PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING
+enum Type
+{
+	PAWN,
+	KNIGHT,
+	BISHOP,
+	ROOK,
+	QUEEN,
+	KING
 };
 
-class Bitboard {
-	private:
-		constexpr static int N = 8; // N x N board 
-		std::bitset< N * N> squares;
+class Bitboard
+{
+private:
+	constexpr static int N = 8; // N x N board
+	std::bitset<N * N> squares;
 
-	public:
-		void setPiece(int square, Type type){
-			squares.set(square, type);
-		}
+public:
+	void setPiece(int square, Type type)
+	{
+		squares.set(square, type);
+	}
 
-}; //end of board class
-   
+}; // end of board class
 #endif
