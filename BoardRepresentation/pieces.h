@@ -20,14 +20,13 @@ class Piece
 public:
 	virtual void move() = 0;
 	virtual void generateMoves() = 0;
+	void generateRookMoves();
+	void generateBishopMoves();
+	void generateKnightMoves();
 
 protected:
 	int square;
 	Team team;
-
-	void generateRookMoves();
-	void generateBishopMoves();
-	void generateKnightMoves();
 }; // end of Piece class
 
 /****************************************************
