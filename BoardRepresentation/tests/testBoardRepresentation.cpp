@@ -8,6 +8,7 @@ using namespace std;
 
 int main()
 {
+  Bitboard board;
 
   cout << "test" << endl;
 
