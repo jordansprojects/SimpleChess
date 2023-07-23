@@ -11,6 +11,16 @@ enum Team
 	ORANGE
 };
 
+enum Pieces
+{
+	PAWN,
+	KNIGHT,
+	ROOK,
+	BISHOP,
+	QUEEN,
+	KING
+};
+
 #include <vector>
 /****************************************************
  * Abstract class to represent objects on the board
