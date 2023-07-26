@@ -8,9 +8,7 @@ using namespace std;
 
 int main()
 {
-  Bitboard board;
 
-  cout << "test" << endl;
-
+  cout << getUnicode(WHITE, KING) << endl;
   return 0;
 }

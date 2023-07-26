@@ -1,7 +1,6 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
-
-#include <vector>
+#include <string>
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * useful references:
@@ -9,7 +8,9 @@
  *
  * */ 
 
-typedef uint64_t Bitboard; /* unsigned 64 bit integer */ 
+typedef unsigned long long U64; /* unsigned 64 bit integer */ 
+
+
 enum Team{
 	WHITE,
 	BLACK,
@@ -28,6 +29,34 @@ enum Pieces {
 	QUEEN,
 	KING
 };
+
+
+/* ************************************************
+ * Returns desired unicode character for each piece and color
+ * @param  team ( Only black and white are supported ) 
+ * @param  piece
+ * ************************************************************/
+std::string getUnicode(int team, int piece ){
+	switch(piece){
+		case KING:
+			return (team == WHITE)? "/U+2654" : "/U+265A";
+			break;
+		case QUEEN:
+			break;
+		case ROOK:
+			break;
+		case BISHOP:
+			break;
+		case KNIGHT:
+			break;
+		case PAWN:
+			break;
+
+
+	}
+
+}
+
 
 /* Indicies of squares on the board
  * this may seem like overkill, but it is 
@@ -49,7 +78,7 @@ enum Squares{
 
 class MoveGeneration {
 	private:
-		Bitboard whitePawns,
+		U64 whitePawns;
 	public:
 		void generateRookMoves();
 		void generateBishopMoves();
