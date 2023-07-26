@@ -29,7 +29,7 @@ enum Pieces {
 	KING
 };
 
-/* indicies of Squares on the board
+/* Indicies of squares on the board
  * this may seem like overkill, but it is 
  * convenient to refer to an index as its chess coordinate 
  * */
@@ -43,12 +43,13 @@ enum Squares{
 		A7, B7, C7, D7, E7, F7, G7, H7,
 		A8, B8, C8, D8, E8, F8, G8, H8 };
 
+/* Starting Positions */
+
+
 
 class MoveGeneration {
 	private:
 		Bitboard whitePawns,
-
-
 	public:
 		void generateRookMoves();
 		void generateBishopMoves();
