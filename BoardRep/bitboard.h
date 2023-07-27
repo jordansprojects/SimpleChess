@@ -24,39 +24,11 @@ enum Pieces {
 	EMPTY,
 	PAWN,
 	KNIGHT,
-	ROOK,
 	BISHOP,
+	ROOK,
 	QUEEN,
 	KING
 };
-
-
-/* ************************************************
- * Returns desired unicode character for each piece and color
- * @param  team ( Only black and white are supported ) 
- * @param  piece
- * ************************************************************/
-std::string getUnicode(int team, int piece ){
-	switch(piece){
-		case KING:
-			return (team == WHITE)? "/U+2654" : "/U+265A";
-			break;
-		case QUEEN:
-			break;
-		case ROOK:
-			break;
-		case BISHOP:
-			break;
-		case KNIGHT:
-			break;
-		case PAWN:
-			break;
-
-
-	}
-
-}
-
 
 /* Indicies of squares on the board
  * this may seem like overkill, but it is 
@@ -72,24 +44,20 @@ enum Squares{
 		A7, B7, C7, D7, E7, F7, G7, H7,
 		A8, B8, C8, D8, E8, F8, G8, H8 };
 
-/* Starting Positions */
-
-
-
-class MoveGeneration {
+class ChessBoard{
 	private:
-		U64 whitePawns;
-	public:
+		U64 whitePawns, whiteKnights, whiteBishops, whiteRooks,whiteQueens,whiteKing,
+	    	blackPawns, blackKnights, blackBishops, blackRooks, blackQueens, blackKing; 
+
+		/* move generation code */
 		void generateRookMoves();
 		void generateBishopMoves();
 		void generateKnightMoves();
 		void generateQueenMoves();
 		void generatePawnMoves();
 
-	protected:
-		int square;
-		Team team;
-}; // end of Piece class
+};
+
 #endif
 
 
