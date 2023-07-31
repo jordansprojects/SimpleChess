@@ -1,6 +1,8 @@
 #ifndef CLI_H
 #define CLI_H
-
+#include "../BoardRep/bitboard.h"
+#include <iostream>
+#include <sstream>
 /*********************************
  * Simple Console UI 
  *
@@ -13,47 +15,34 @@
  * @param  piece
  * ************************************************************/
 
-std::string getUnicode(int team, int piece ){
 
-	// TODO: FINISH THIS.
-	// normally I would not leave a function this simple unfished,
-	// but i am going to a 5K w/ my buddy and want to push changes
-	// ASAP <3 
-	/* this will be optimized to use simple arithmetic to retrieve
-	 * the proper unicode synbol. */
-	int maxIndex = 6;
-	std::string prefix = "265";
-	int startWhite = 4;
-	int startBlack = 'A';
-	
-	/*
-	if ( team == WHITE){
-	
-	}else if (team == BLACK){
-	
-	
-	}else{
-		throw "Attempt to retrieve unicode for invalid team enum. Only black and white is supported at this time.\n";
-	
+
+char getUnicode(int team, int piece ){
+	std::stringstream ss;
+	int minIndex = EMPTY;
+	int maxIndex = KING;
+	if ( piece < minIndex || piece > maxIndex){
+		throw "CLI.h: Invalid piece Index provided. Must be value between 1 - 6 inclusive.\n"; 
 	}
-	*/
-	
+
+
 	switch(piece){
+		case EMPTY:
+			return '_';
 		case KING:
-			return (team == WHITE)? "\u2654" : "\u265A";
-			break;
+			return (team == WHITE)? '\u2654' : '\u265A' ;
 		case QUEEN:
-			return (team == WHITE)? "\u2655": "\u265B";
-			break;
+			return (team == WHITE)? 0x2655: 0x265B;
 		case ROOK:
-			return (team == WHITE)? "\u2656": "\u265C";
-			break;
+			return (team == WHITE)? 0x2656  : 0x265C;
 		case BISHOP:
-			break;
+			return (team == WHITE)? 0x2657: 0x265D;
 		case KNIGHT:
-			break;
+			return (team == WHITE)? 0x2658: 0x265E;
 		case PAWN:
-			break;
+			return (team == WHITE)? 0x2659: 0x265F;
+		default:
+			throw "CLI.h: invalid piece  or team value provided.\n";
 	}
 
 }
