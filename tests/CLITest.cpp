@@ -17,8 +17,8 @@ int main(){
 
 	/* test 2 */
 	printBanner("Testing Unicode Symbol Printing", SPACING);
-	cout<< setw(SPACING+10) << " (Console must support unicode symbols)\n";
-	cout<< setw(SPACING+10) << " (Guidance to be supplied in near future)\n";
+	cout<< setw(SPACING+7) << " (Console must support unicode symbols)\n";
+	cout<< setw(SPACING+7) << " (Guidance to be supplied in near future)\n";
 	runTestOnAllPieces<string>(getSymbol);
 
 
@@ -41,11 +41,12 @@ void runTestOnAllPieces(function <T (int, int)> testFunc){
 			cout<< setw(spacing) << testFunc(team, piece);
 		} 
 	}
+	cout << '\n';
 	
 }
 void printBanner(std::string bannerStr, int spacing){
 	string bar = "---------------------------------";
-	cout<< setw(spacing)<<bar << '\n' << 
+	cout<< '\n' << setw(spacing)<<bar << '\n' << 
 	setw(spacing) << bannerStr <<"\n"	
 	<< setw(spacing) << bar << '\n';
 	
