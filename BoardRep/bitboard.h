@@ -110,9 +110,6 @@ class ChessBoard{
 			std::cout << "blackQueens = " << blackQueens << '\n';
 			whiteKings = setKthBit(whiteKings, E1);
 			blackKings = setKthBit(blackKings, E8);
-
-
-
 			
 		}
 
@@ -166,7 +163,7 @@ class ChessBoard{
 			return blackKings;
 		}
 
-		
+	
 
 };
 

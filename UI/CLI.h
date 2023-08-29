@@ -76,4 +76,9 @@ std::string getSymbol(int team, int piece){
 }
 
 
+void printBoard(ChessBoard board){
+	
+
+}
+
 #endif
