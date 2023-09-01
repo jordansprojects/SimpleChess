@@ -5,18 +5,13 @@
 #include <sstream>
 /*********************************
  * Simple Console UI 
- *
- *
  *********************************/
 
-/* ************************************************
- * Returns desired unicode character for each piece and color
+/* ************************************************************
+ * Returns desired unicode value for each piece and color
  * @param  team ( Only black and white are supported ) 
  * @param  piece
  * ************************************************************/
-
-
-
 std::string getUnicode(int team, int piece ){
 	std::stringstream ss;
 	if ( piece < EMPTY || piece > KING){
@@ -31,7 +26,6 @@ std::string getUnicode(int team, int piece ){
 	 * complexity to actually producing the correct encoded data . 
 	 * that remains a TODO in this project. */
 	
-
 	if ( team == WHITE){
 		ss <<  (2654 +  ( (piece - KING) *-1 ));
 	
@@ -42,7 +36,11 @@ std::string getUnicode(int team, int piece ){
 	return ss.str();
 }
 
-
+/* ************************************************************
+ * Returns desired unicode character for each piece and color
+ * @param  team ( Only black and white are supported )
+ * @param  piece
+ * ************************************************************/
 std::string getSymbol(int team, int piece){
 	std::string c;
 	switch(piece){

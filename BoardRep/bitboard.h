@@ -32,12 +32,12 @@ enum Pieces {
 	KING		// 6
 };
 
-/* Indicies of squares on the board
+/******************************************************************
+ * Indexes of squares on the board
  * this may seem like overkill, but it is 
  * convenient to refer to an index as its chess coordinate 
- *
  * Note that this view is the perspective of the black player
- * */
+ ******************************************************************/
 enum Squares{
 		A1, B1, C1, D1, E1, F1, G1, H1,  // 00 01 02 03 04 05 06 07
 		A2, B2, C2, D2, E2, F2, G2, H2,  // 08 09 10 11 12 13 14 15
@@ -106,8 +106,6 @@ class ChessBoard{
 			whiteQueens = setKthBit(whiteQueens, D1);
 			blackQueens = setKthBit(blackQueens, D8);
 
-			std::cout<< "whiteQueens = " << whiteQueens << '\n';
-			std::cout << "blackQueens = " << blackQueens << '\n';
 			whiteKings = setKthBit(whiteKings, E1);
 			blackKings = setKthBit(blackKings, E8);
 			
