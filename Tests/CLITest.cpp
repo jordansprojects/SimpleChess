@@ -50,7 +50,6 @@ void printBanner(std::string bannerStr, int spacing){
 	setw(spacing) << bannerStr <<"\n"	
 	<< setw(spacing) << bar << '\n';
 	
-
 }
 
 

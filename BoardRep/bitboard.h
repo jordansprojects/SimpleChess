@@ -2,7 +2,6 @@
 #define BITBOARD_H
 #include <string>
 #include <iostream> /* for quick debug */
-#include <bitset>
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * useful resources:
  * https://pages.cs.wisc.edu/~psilord/blog/data/chess-pages/rep.html
@@ -61,9 +60,9 @@ class ChessBoard{
 		
 		/* setKthBit - sets the Kth bit to 1.
 		 * Does so by shifting 1 k times  and then perform bitwise OR operation with the number  
-		 * param  k : the bit to be set
-		 * param n : the current decimal value of the bitboard
-		 * Reference :https://www.geeksforgeeks.org/set-k-th-bit-given-number*/
+		 * param k: the bit to be set
+		 * param n: the current decimal value of the bitboard
+		 * Reference: https://www.geeksforgeeks.org/set-k-th-bit-given-number*/
 		U64 setKthBit(U64 n, int k){
 			return ( ( 1ULL <<  k ) | n );
 		}

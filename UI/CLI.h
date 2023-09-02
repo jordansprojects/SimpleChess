@@ -7,12 +7,13 @@
  * Simple Console UI 
  *********************************/
 
+
 /* ************************************************************
  * Returns desired unicode value for each piece and color
  * @param  team ( Only black and white are supported ) 
  * @param  piece
  * ************************************************************/
-std::string getUnicode(int team, int piece ){
+static std::string getUnicode(int team, int piece ){
 	std::stringstream ss;
 	if ( piece < EMPTY || piece > KING){
 		throw "CLI.h: Invalid piece Index provided. Must be value between 1 - 6 inclusive.\n"; 
@@ -41,7 +42,7 @@ std::string getUnicode(int team, int piece ){
  * @param  team ( Only black and white are supported )
  * @param  piece
  * ************************************************************/
-std::string getSymbol(int team, int piece){
+static std::string getSymbol(int team, int piece){
 	std::string c;
 	switch(piece){
 		case EMPTY:
@@ -74,9 +75,19 @@ std::string getSymbol(int team, int piece){
 }
 
 
-void printBoard(ChessBoard board){
-	
+void printBoard(ChessBoard board, int playerView){
+	std::string fileStr = "abcdefgh";
+	std::string rankStr = "12345678";
 
+	if (playerView == WHITE){
+		for( int i = fileStr.length() -1; i >= 0; i--){
+
+		}
+
+	}else if (playerView == BLACK){
+
+	}
+	
 }
 
 #endif

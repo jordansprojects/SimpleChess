@@ -32,19 +32,19 @@ int main(){
 	// create chessboard
 	ChessBoard board;
 	// check if bitboard values are valid upon initialization
-	std::cout << "Test 1) checking if initial pawn bitboards are correct...\n";
+	std::cout << "Test 1 ) checking if initial pawn bitboards are correct...\n";
 	assert (WHITEPAWNS == board.getWhitePawns());
 	assert (BLACKPAWNS == board.getBlackPawns());
 
-	std::cout << "Test 2) checking if initial knight bitboards are correct...\n";
+	std::cout << "Test 2 ) checking if initial knight bitboards are correct...\n";
 	assert (WHITEKNIGHTS == board.getWhiteKnights());
 	assert (BLACKKNIGHTS == board.getBlackKnights());
 
-	std::cout << "Test 3) checking if initial bishop bitboards are correct...\n";
+	std::cout << "Test 3 ) checking if initial bishop bitboards are correct...\n";
 	assert (WHITEBISHOPS == board.getWhiteBishops());
 	assert (BLACKBISHOPS == board.getBlackBishops());
 
-	std::cout << "Test 4) checking if initial rook bitboards are correct...\n";
+	std::cout << "Test 4 ) checking if initial rook bitboards are correct...\n";
 	assert (WHITEROOKS == board.getWhiteRooks());
 	assert (BLACKROOKS == board.getBlackRooks());
 
