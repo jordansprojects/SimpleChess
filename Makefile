@@ -2,7 +2,7 @@
 # Makefile for SimpleChess Testing Suite
 #################################################
 
-CXX = g++
+CXX = g++ 
 CXXFLAGS = -Wall -pedantic -Ofast -std=c++1z
 LIB = -lm
 LDFLAGS = -L.

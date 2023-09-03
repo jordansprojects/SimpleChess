@@ -2,6 +2,7 @@
 
 #include "../BoardRep/bitboard.h"
 #include <assert.h>
+
 int main(){
 
 	/* desired outcomes are determined by using Layout 2  on this website :  https://gekomad.github.io/Cinnamon/BitboardCalculator/ */

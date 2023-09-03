@@ -4,6 +4,7 @@
 #include <unordered_map> /* keep track of moves for a particular position */
 #include <vector>
 #include <iostream> /* for quick debug */
+#include<bitset>
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * useful resources:
@@ -73,6 +74,8 @@ class ChessBoard{
 		}
 
 
+
+
 	public:
 		ChessBoard(){
 			std::cout << "bitboard is init\n";
@@ -86,6 +89,9 @@ class ChessBoard{
 		void generatePawnMoves();
 
 		/* set up the initial bitboard states */
+		/* NOTE: I could have used std::bitset::set() for setting
+		 * bits on teh bitboard instead; but this works too.
+		 */
 		void initBoards(){
 			/* set bitboards to zero*/
 			whitePawns = blackPawns = whiteKnights = blackKnights = whiteBishops
@@ -165,6 +171,63 @@ class ChessBoard{
 			return blackKings;
 		}
 
+
+		std::vector<U64> getWhite(){
+			return {whitePawns, whiteKnights, whiteBishops, whiteRooks,whiteQueens,whiteKings};
+		}
+
+		std::vector<U64> getBlack(){
+			return {blackPawns, blackKnights, blackBishops, blackRooks, blackQueens,blackKings};
+		}
+
+		/* bitboard bitset getters */
+		std::bitset<64> getWhitePawnsAsBitset(){
+					return std::bitset<64>(whitePawns);
+				}
+
+		std::bitset<64> getBlackPawnsAsBitset(){
+				return std::bitset<64>(blackPawns);
+				}
+
+		std::bitset<64> getWhiteKnightsAsBitset(){
+					return std::bitset<64>(whiteKnights);
+				}
+
+		std::bitset<64> getBlackKnightsAsBitset(){
+					return std::bitset<64>(blackKnights);
+				}
+
+		std::bitset<64> getWhiteBishopsAsBitset(){
+					return std::bitset<64>(whiteBishops);
+				}
+
+		std::bitset<64> getBlackBishopsAsBitset(){
+					return std::bitset<64>(blackBishops);
+				}
+
+		std::bitset<64> getWhiteRooksAsBitset(){
+					return std::bitset<64>(whiteRooks);
+				}
+
+		std::bitset<64> getBlackRooksAsBitset(){
+					return std::bitset<64>(blackRooks);
+				}
+
+		std::bitset<64> getWhiteQueensAsBitset(){
+					return std::bitset<64>(whiteQueens);
+				}
+
+		std::bitset<64> getBlackQueensAsBitset(){
+					return std::bitset<64>(blackQueens);
+				}
+
+		std::bitset<64> getWhiteKingsAsBitset(){
+					return std::bitset<64>(whiteKings);
+				}
+
+		std::bitset<64> getBlackKingsAsBitset(){
+					return std::bitset<64>(blackKings);
+				}
 	
 
 };

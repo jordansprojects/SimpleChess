@@ -1,4 +1,5 @@
 #include "../UI/CLI.h"
+#include "../BoardRep/bitboard.h"
 #include <iomanip>
 #include <string>
 #include <functional>
@@ -9,6 +10,7 @@ void printBanner(string bannerStr, int spacing);
 template < class T >
 void runTestOnAllPieces(std::function<T(int,int)>);
 int main(){
+	ChessBoard board;
 	const int SPACING = 55;
 
 	/* test 1 */
@@ -20,14 +22,18 @@ int main(){
 	cout<< setw(SPACING+7) << " (Console must support unicode symbols)\n";
 	cout<< setw(SPACING+7) << " (Guidance to be supplied in near future)\n";
 	runTestOnAllPieces<string>(getSymbol);
+	/** test 3 **/
+	printBanner("Testing the printing of the default board from White's perspective", SPACING);
+	printBoard(board,WHITE);
 
-
-
+	/** test 4 **/
+	printBanner("Testing the printing of the default board from Black's perspective", SPACING);
+	printBoard(board,BLACK);
 
 return 0;
 }
 
-/****************************************************
+/**************************************************
  * Tester Helper functions
  * **************************************************/
 /* passing functions as param is a c++11 feature */
@@ -45,7 +51,7 @@ void runTestOnAllPieces(function <T (int, int)> testFunc){
 	
 }
 void printBanner(std::string bannerStr, int spacing){
-	string bar = "---------------------------------";
+	string bar = "------------------------------------------------------------------";
 	cout<< '\n' << setw(spacing)<<bar << '\n' << 
 	setw(spacing) << bannerStr <<"\n"	
 	<< setw(spacing) << bar << '\n';

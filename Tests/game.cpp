@@ -21,7 +21,7 @@ void parseMove(string move){
 		switch(move[0]){
 		case 'r': // rook move
 			break;
-		case 'q': // queen move
+		case 'q': // queen move//
 			break;
 		case 'b': // bishop move
 			break;
