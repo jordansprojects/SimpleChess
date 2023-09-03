@@ -15,22 +15,21 @@ DEPS = $(SRCS:.cpp=.d)
 #Default Target
 all: $(PROG)
 
-gameCLI: Tests/game.o 
+gameCLI: Tests/game.o BoardRep/bitboard.o
 	$(CC) $(CFLAGS) -o gameCLI Tests/game.o $(LDFLAGS) $(LIB)
 
-bitboardTest: Tests/bitboardTest.o
+bitboardTest: Tests/bitboardTest.o BoardRep/bitboard.o
 	$(CC) $(CFLAGS) -o bitboardTest Tests/bitboardTest.o $(LDFLAGS) $(LIB)
 
-CLITest: Tests/CLITest.o
+CLITest: Tests/CLITest.o UI/CLI.o
 	$(CC) $(CFLAGS) -o CLITest Tests/CLITest.o $(LDFLAGS) $(LIB)
 
-
-
-
-
 .cpp.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
 
+.h.o:
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 clean:
 	rm -f *.o $(PROG)
+	

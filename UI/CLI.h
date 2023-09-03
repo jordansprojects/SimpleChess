@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 /*********************************
- * Simple Console UI 
+ * Simple Console UI
  *********************************/
 
 

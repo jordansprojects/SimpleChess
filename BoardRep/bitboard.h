@@ -1,7 +1,10 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
 #include <string>
+#include <unordered_map> /* keep track of moves for a particular position */
+#include <vector>
 #include <iostream> /* for quick debug */
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * useful resources:
  * https://pages.cs.wisc.edu/~psilord/blog/data/chess-pages/rep.html
@@ -58,6 +61,8 @@ class ChessBoard{
 		U64 whitePawns, whiteKnights  ,whiteBishops , whiteRooks, whiteQueens,  whiteKings,
 	    	blackPawns, blackKnights, blackBishops,  blackRooks, blackQueens, blackKings;
 		
+		std::unordered_map<U64, std::vector<U64>> moves = {};
+
 		/* setKthBit - sets the Kth bit to 1.
 		 * Does so by shifting 1 k times  and then perform bitwise OR operation with the number  
 		 * param k: the bit to be set
@@ -66,10 +71,11 @@ class ChessBoard{
 		U64 setKthBit(U64 n, int k){
 			return ( ( 1ULL <<  k ) | n );
 		}
-		
+
 
 	public:
 		ChessBoard(){
+			std::cout << "bitboard is init\n";
 			initBoards();
 		}
 		/* move generation code */
@@ -109,7 +115,6 @@ class ChessBoard{
 			blackKings = setKthBit(blackKings, E8);
 			
 		}
-
 
 		/* bitboard getters */
 		U64 getWhitePawns(){
