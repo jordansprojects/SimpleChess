@@ -26,8 +26,8 @@ std::string blackQueenUnicode =  "\u265B";
 std::string whiteKingUnicode = "♔" ;
 std::string blackKingUnicode =  "\u265A" ;
 
-const int SETWUNICODE = 7;
-const int SETWGENERAL = 3;
+// space per piece
+std::string SPACE = "	";
 
 /* ************************************************************
  * Returns desired unicode value for each piece and color
@@ -104,70 +104,75 @@ static std::string getSymbol(int team, int piece){
  */
 void printPieceBasedOnBitboardsIndex(ChessBoard board,int i){
 					if( board.getWhitePawnsAsBitset()[i]){
-						std::cout << std::setw(SETWUNICODE)<< whitePawnUnicode ;
+						std::cout <<  SPACE<< whitePawnUnicode ;
 					}else if(board.getWhiteKnightsAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< whiteKnightUnicode ;
+						std::cout << SPACE<<  whiteKnightUnicode ;
 					}else if(board.getWhiteBishopsAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< whiteBishopUnicode ;
+						std::cout <<  SPACE<<  whiteBishopUnicode ;
 					}else if(board.getWhiteRooksAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< whiteRookUnicode ;
+						std::cout << SPACE<< whiteRookUnicode ;
 					}else if(board.getWhiteQueensAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< whiteQueenUnicode ;
+						std::cout << SPACE<<  whiteQueenUnicode ;
 					}else if(board.getWhiteKingsAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< whiteKingUnicode ;
+						std::cout <<  SPACE<<  whiteKingUnicode ;
 					}else if( board.getBlackPawnsAsBitset()[i]){
-						std::cout << std::setw(SETWUNICODE)<< blackPawnUnicode ;
+						std::cout << SPACE<< blackPawnUnicode ;
 					}else if(board.getBlackKnightsAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< blackKnightUnicode ;
+						std::cout <<  SPACE<< blackKnightUnicode ;
 					}else if(board.getBlackBishopsAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< blackBishopUnicode ;
+						std::cout <<  SPACE<<  blackBishopUnicode ;
 					}else if(board.getBlackRooksAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< blackRookUnicode ;
+						std::cout <<  SPACE<<  blackRookUnicode ;
 					}else if(board.getBlackQueensAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< blackQueenUnicode ;
+						std::cout <<  SPACE<<  blackQueenUnicode ;
 					}else if(board.getBlackKingsAsBitset()[i]) {
-						std::cout << std::setw(SETWUNICODE)<< blackKingUnicode ;
+						std::cout <<  SPACE<<  blackKingUnicode ;
 					}
 					else{
-						std::cout <<std::setw(SETWGENERAL) << "_";
+						std::cout <<  SPACE << "_";
 					}
 }
+
 /*
  * Prints the board to the console.
  */
 void printBoard(ChessBoard board, int playerView){
 	std::string whitePawnUnicode = "\u2659";
-	std::string fileStr = "abcdefgh";
+	std::string fileStr = "\u0061\u0062\u0063\u0064\u0065\u0066\u0067\u0068";
 	std::string rankStr = "12345678";
 
 
 	if (playerView == WHITE){
-		reverse(rankStr.begin(), rankStr.end()); //reverse rankStr
+		reverse(rankStr.begin(), rankStr.end());
 		for( int i = 0; i < 8 ; i++){
 			// print the rank at the beginning of each row
-			std::cout <<std::right <<std::setw(SETWGENERAL)  << rankStr[i] << std::left;
-			for(int j = 63 - (i*8); j > 63 - ( (i*8) + 8) ; j--){ /* we go in reverse bitset order for white */
+			std::cout <<std::right <<SPACE<< rankStr[i] << std::left;
+			/* we go in reverse bitset order for white.
+			 * the board is printed in reverse order, and each individual
+			 * row is reversed as well - otherwise the board does
+			 * not appear properly rotated 180 degrees */
+			for(int j = (63 - i * 8) - 7 ; j < (64 - i * 8) ; j++ ){
 				printPieceBasedOnBitboardsIndex(board,j);
 			}
 			std::cout << std::endl;
 		}
 	}else if (playerView == BLACK){
-		//reverse the fileStr for black
 		reverse(fileStr.begin(), fileStr.end());
 		for( int i = 0; i < 8 ; i++){
 					// print the rank at the beginning of each row
-					std::cout <<std::right <<std::setw(SETWGENERAL)  << rankStr[i] << std::left;
-					for(int j = (i*8); j < ( (i*8) + 8) ; j++){ /* we go in reverse bitset order for white */
+					std::cout <<std::right << SPACE << rankStr[i] << std::left;
+					for(int j = (i*8); j < ( (i*8) + 8) ; j++){
 						printPieceBasedOnBitboardsIndex(board,j);
 					}
 					std::cout << std::endl;
 				}
 	}
 	// now print the file string
-	std::cout << std::right << "  ";
+	std::cout <<  SPACE;
+
 	for(size_t i =0 ; i < fileStr.length(); i++)
-		std::cout<< std::setw(SETWGENERAL)<< fileStr[i];
-	std::cout<<std::endl;
+		std::cout<<  SPACE<< fileStr[i];
+	std::cout<<std::right << std::endl;
 	
 }
 

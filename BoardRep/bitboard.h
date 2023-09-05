@@ -19,10 +19,6 @@ typedef unsigned long long U64; /* unsigned 64 bit integer */
 enum Team{
 	WHITE,
 	BLACK,
-	BLUE, /* potential support for chess beyond 2 teams!  */
-	GREEN,
-	PINK,
-	ORANGE
 };
 
 enum Pieces {
@@ -60,9 +56,14 @@ class ChessBoard{
 		/* bitboards for each type of piece */
 		/* note the support for multiple kings of one color - in case some silly varient has it */ 
 		U64 whitePawns, whiteKnights  ,whiteBishops , whiteRooks, whiteQueens,  whiteKings,
-	    	blackPawns, blackKnights, blackBishops,  blackRooks, blackQueens, blackKings;
-		
-		std::unordered_map<U64, std::vector<U64>> moves = {};
+	    	blackPawns, blackKnights, blackBishops,  blackRooks, blackQueens, blackKings, empty;
+		std::bitset<64> whitePawnsBitset, whiteKnightsBitset,whiteBishopsBitset , whiteRooksBitset,
+		whiteQueensBitset,  whiteKingsBitset,blackPawnsBitset, blackKnightsBitset, blackBishopsBitset,
+		blackRooksBitset, blackQueensBitset, blackKingsBitset, emptyBitset;
+		std::unordered_map< U64*, std::vector<U64*>> moves = {};
+
+		const int RANK_UNIT = 8; // one step to the next file (AKA row or horizontal line) is 8 bits
+		const int FILE_UNIT = 1; // one step to the next rank (AKA column or vertical line) is 1 bit
 
 		/* setKthBit - sets the Kth bit to 1.
 		 * Does so by shifting 1 k times  and then perform bitwise OR operation with the number  
@@ -95,31 +96,61 @@ class ChessBoard{
 		void initBoards(){
 			/* set bitboards to zero*/
 			whitePawns = blackPawns = whiteKnights = blackKnights = whiteBishops
-			   = blackBishops = whiteRooks = blackRooks = whiteQueens = blackQueens = whiteKings = blackKings =  0;
+			   = blackBishops = whiteRooks = blackRooks = whiteQueens = blackQueens = whiteKings = blackKings = empty = 0;
 			/* set up pawn bitboards */
 			for ( int i = A2; i <= H2; i++){
 				whitePawns = setKthBit( whitePawns, i );
 				/* 40 is the index distance between the white and black pawns */
 				blackPawns = setKthBit(blackPawns, i + 40 ) ;
 			}
+			whitePawnsBitset =  std::bitset<64>(whitePawns);
+			blackPawnsBitset =  std::bitset<64>(blackPawns);
 
 			/* set up other bitboards manually 
 			 * we can make nested calls for boards with two pieces of each type*/
 			whiteKnights = setKthBit(setKthBit(whiteKnights, B1), G1);
 			blackKnights = setKthBit(setKthBit(blackKnights, B8), G8);
 			
+			whiteKnightsBitset =  std::bitset<64>(whiteKnights);
+			blackKnightsBitset =  std::bitset<64>(blackKnights);
+
+
 			whiteBishops = setKthBit(setKthBit(whiteBishops, C1), F1);
 			blackBishops = setKthBit(setKthBit(blackBishops, C8), F8);
+			whiteBishopsBitset =  std::bitset<64>(whiteBishops);
+			blackBishopsBitset =  std::bitset<64>(blackBishops);
 
 			whiteRooks = setKthBit(setKthBit(whiteRooks, A1), H1);
 			blackRooks = setKthBit(setKthBit(blackRooks, A8), H8);
+			whiteRooksBitset =  std::bitset<64>(whiteRooks);
+			blackRooksBitset =  std::bitset<64>(blackRooks);
 
 			whiteQueens = setKthBit(whiteQueens, D1);
 			blackQueens = setKthBit(blackQueens, D8);
+			whiteQueensBitset =  std::bitset<64>(whiteQueens);
+			blackQueensBitset =  std::bitset<64>(blackQueens);
 
 			whiteKings = setKthBit(whiteKings, E1);
 			blackKings = setKthBit(blackKings, E8);
+			whiteKingsBitset =  std::bitset<64>(whiteKings);
+			blackKingsBitset =  std::bitset<64>(blackKings);
 			
+			empty = ~(whitePawns & blackPawns & whiteKnights & blackKnights & whiteBishops & blackBishops &
+					whiteRooks & blackRooks & whiteQueens & blackQueens & whiteKings & blackKings);
+
+			emptyBitset =  std::bitset<64>(empty);
+		}
+
+
+		/* move generation methods */
+
+		/**************************
+		 * generates moves for white pawns
+		 * @param bits : the bitset of the desired piece type
+		 * @param vector to store moves from a particular position
+		 */
+		void populateWhitePawnMoves(U64 bits, std::vector<U64*>&v){
+			U64 forwardSteps = (bits >> RANK_UNIT xor empty); // move to the next rank
 		}
 
 		/* bitboard getters */
@@ -182,51 +213,51 @@ class ChessBoard{
 
 		/* bitboard bitset getters */
 		std::bitset<64> getWhitePawnsAsBitset(){
-					return std::bitset<64>(whitePawns);
+					return whitePawnsBitset;
 				}
 
 		std::bitset<64> getBlackPawnsAsBitset(){
-				return std::bitset<64>(blackPawns);
+				return blackPawnsBitset;
 				}
 
 		std::bitset<64> getWhiteKnightsAsBitset(){
-					return std::bitset<64>(whiteKnights);
+					return whiteKnightsBitset;
 				}
 
 		std::bitset<64> getBlackKnightsAsBitset(){
-					return std::bitset<64>(blackKnights);
+					return blackKnightsBitset;
 				}
 
 		std::bitset<64> getWhiteBishopsAsBitset(){
-					return std::bitset<64>(whiteBishops);
+					return whiteBishopsBitset;
 				}
 
 		std::bitset<64> getBlackBishopsAsBitset(){
-					return std::bitset<64>(blackBishops);
+					return blackBishopsBitset;
 				}
 
 		std::bitset<64> getWhiteRooksAsBitset(){
-					return std::bitset<64>(whiteRooks);
+					return whiteRooksBitset;
 				}
 
 		std::bitset<64> getBlackRooksAsBitset(){
-					return std::bitset<64>(blackRooks);
+					return blackRooksBitset;
 				}
 
 		std::bitset<64> getWhiteQueensAsBitset(){
-					return std::bitset<64>(whiteQueens);
+					return whiteQueensBitset;
 				}
 
 		std::bitset<64> getBlackQueensAsBitset(){
-					return std::bitset<64>(blackQueens);
+					return blackQueensBitset;
 				}
 
 		std::bitset<64> getWhiteKingsAsBitset(){
-					return std::bitset<64>(whiteKings);
+					return whiteKingsBitset;
 				}
 
 		std::bitset<64> getBlackKingsAsBitset(){
-					return std::bitset<64>(blackKings);
+					return blackKingsBitset;
 				}
 	
 

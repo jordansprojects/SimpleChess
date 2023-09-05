@@ -8,14 +8,22 @@
 #include <algorithm>
 using namespace std;
 
-
-void parseMove(string move){
+/*
+ *  parses move string.
+ *
+ *  @return false if  move selection failed
+ *
+ */
+bool parseMove(string move){
 	// pawn move
 	std::transform(move.begin(), move.end(), move.begin(), [](unsigned char c) { return std::tolower(c); });
 	if(move.length() == 2){
 		if (move[0] < 'a' || move[0] > 'h' || move[1] < '1' || move[1] > '8'){
 			cout << "Invalid move.\n";
-			return;
+			return false;
+		}else{
+			// pawn move
+
 		}
 	}else if (move.length() == 3 ){
 		switch(move[0]){
@@ -31,34 +39,37 @@ void parseMove(string move){
 			break;
 		default:
 			cout << "Invalid move\n";
-			return;
+			return false ;
 		}
 		if(move[1] < '1' || move[1] > '8'){
 			cout << "Invalid move\n";
-			return;
+			return false;
 		}
 
 	}else{
 		cout << "Invalid move.\n";
-		return;
+		return false;
 	}
+
+	return true;
 }
 
 int main(){
-
 	ChessBoard board;
+	int who = WHITE;
 	bool gameOn = true;
 	string moveStr;
 	while( gameOn ){
 
-	cout << "Make your move : ";
+	cout << "Player " << who <<" :  Make your move : ";
 	getline(cin, moveStr);
 
 	if ( moveStr == "resign"){
 		gameOn = false;
 	}
-	parseMove(moveStr);
-	
+	if (parseMove(moveStr)){
+		who = (who == WHITE)? BLACK: WHITE;
+	}
 
 	} // end of game loop
 

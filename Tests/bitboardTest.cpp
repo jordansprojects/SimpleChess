@@ -3,6 +3,15 @@
 #include "../BoardRep/bitboard.h"
 #include <assert.h>
 
+void printBitsetNicely(std::bitset<64> bitboardBitset ){
+	for ( int i = 0 ; i < 64 ; i++){
+		if (i > 0 && i % 8 == 0 )
+					std::cout << '\n';
+		std::cout << bitboardBitset[i] << " ";
+	}
+	std:: cout << '\n';
+}
+
 int main(){
 
 	/* desired outcomes are determined by using Layout 2  on this website :  https://gekomad.github.io/Cinnamon/BitboardCalculator/ */
@@ -57,10 +66,25 @@ int main(){
 	assert (WHITEKINGS == board.getWhiteKings());
 	assert (BLACKKINGS == board.getBlackKings());
 
+	std::cout << "Passed All cassert tests succesfuly!\n";
+
+	std::cout<< "Test 7 ) Printing bitset for all bitboards.\n";
+	std::cout << "\nWhite Pawns\n";
+	printBitsetNicely(board.getWhitePawnsAsBitset());
+
+	std::cout << "\nBlack Pawns\n";
+	printBitsetNicely(board.getBlackPawnsAsBitset());
+
+	std::cout << "\nWhite Knights\n";
+	printBitsetNicely(board.getWhiteKnightsAsBitset());
+
+	std::cout << "\nBlack Knights\n";
+	printBitsetNicely(board.getBlackKnightsAsBitset());
 
 
+	std::cout << "\nWhite Queens\n";
+	printBitsetNicely(board.getWhiteQueensAsBitset());
 
-	std::cout << "Passed All tests succesfuly!\n";
-
-
+	std::cout << "\nBlack Queens\n";
+	printBitsetNicely(board.getBlackQueensAsBitset());
 }
