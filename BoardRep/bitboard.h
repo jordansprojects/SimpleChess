@@ -150,7 +150,7 @@ class ChessBoard{
 		 * @param vector to store moves from a particular position
 		 */
 		void populateWhitePawnMoves(U64 bits, std::vector<U64*>&v){
-			U64 forwardSteps = (bits >> RANK_UNIT xor empty); // move to the next rank
+			U64 forwardSteps = ( (bits >> RANK_UNIT) and empty); // move to the next rank
 		}
 
 		/* bitboard getters */
