@@ -45,7 +45,7 @@ int main(){
 	std::cout << "Test 1 ) checking if initial pawn bitboards are correct...\n";
 	assert (WHITEPAWNS == board.getWhitePawns());
 	assert (BLACKPAWNS == board.getBlackPawns());
-
+//
 	std::cout << "Test 2 ) checking if initial knight bitboards are correct...\n";
 	assert (WHITEKNIGHTS == board.getWhiteKnights());
 	assert (BLACKKNIGHTS == board.getBlackKnights());
@@ -70,21 +70,21 @@ int main(){
 
 	std::cout<< "Test 7 ) Printing bitset for all bitboards.\n";
 	std::cout << "\nWhite Pawns\n";
-	printBitsetNicely(board.getWhitePawnsAsBitset());
+	printBitsetNicely(std::bitset<64>(board.getWhitePawns()));
 
-	std::cout << "\nBlack Pawns\n";
-	printBitsetNicely(board.getBlackPawnsAsBitset());
+//	std::cout << "\nBlack Pawns\n";
+	printBitsetNicely(std::bitset<64>(board.getBlackPawns()));
 
 	std::cout << "\nWhite Knights\n";
-	printBitsetNicely(board.getWhiteKnightsAsBitset());
+	printBitsetNicely(std::bitset<64>(board.getWhiteKnights()));
 
 	std::cout << "\nBlack Knights\n";
-	printBitsetNicely(board.getBlackKnightsAsBitset());
+	printBitsetNicely(std::bitset<64>(board.getBlackKnights()));
 
 
 	std::cout << "\nWhite Queens\n";
-	printBitsetNicely(board.getWhiteQueensAsBitset());
+	printBitsetNicely(std::bitset<64>(board.getWhiteQueens()));
 
 	std::cout << "\nBlack Queens\n";
-	printBitsetNicely(board.getBlackQueensAsBitset());
+	printBitsetNicely(std::bitset<64>(board.getBlackQueens()));
 }

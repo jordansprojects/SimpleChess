@@ -103,29 +103,29 @@ static std::string getSymbol(int team, int piece){
  *  @param i : index to check
  */
 void printPieceBasedOnBitboardsIndex(ChessBoard board,int i){
-					if( board.getWhitePawnsAsBitset()[i]){
+					if( std::bitset<64>(board.getWhitePawns())[i]){
 						std::cout <<  SPACE<< whitePawnUnicode ;
-					}else if(board.getWhiteKnightsAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getWhiteKnights())[i]) {
 						std::cout << SPACE<<  whiteKnightUnicode ;
-					}else if(board.getWhiteBishopsAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getWhiteBishops())[i]) {
 						std::cout <<  SPACE<<  whiteBishopUnicode ;
-					}else if(board.getWhiteRooksAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getWhiteRooks())[i]) {
 						std::cout << SPACE<< whiteRookUnicode ;
-					}else if(board.getWhiteQueensAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getWhiteQueens())[i]) {
 						std::cout << SPACE<<  whiteQueenUnicode ;
-					}else if(board.getWhiteKingsAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getWhiteKings())[i]) {
 						std::cout <<  SPACE<<  whiteKingUnicode ;
-					}else if( board.getBlackPawnsAsBitset()[i]){
+					}else if(std::bitset<64>(board.getBlackPawns())[i]){
 						std::cout << SPACE<< blackPawnUnicode ;
-					}else if(board.getBlackKnightsAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getBlackKnights())[i]) {
 						std::cout <<  SPACE<< blackKnightUnicode ;
-					}else if(board.getBlackBishopsAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getBlackBishops())[i]) {
 						std::cout <<  SPACE<<  blackBishopUnicode ;
-					}else if(board.getBlackRooksAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getBlackRooks())[i]) {
 						std::cout <<  SPACE<<  blackRookUnicode ;
-					}else if(board.getBlackQueensAsBitset()[i]) {
+					}else if (std::bitset<64>(board.getBlackQueens())[i]) {
 						std::cout <<  SPACE<<  blackQueenUnicode ;
-					}else if(board.getBlackKingsAsBitset()[i]) {
+					}else if(std::bitset<64>(board.getBlackKings())[i]) {
 						std::cout <<  SPACE<<  blackKingUnicode ;
 					}
 					else{
@@ -158,12 +158,14 @@ void printBoard(ChessBoard board, int playerView){
 		}
 	}else if (playerView == BLACK){
 		reverse(fileStr.begin(), fileStr.end());
-		for( int i = 0; i < 8 ; i++){
+		int startOfRow = 7;
+		for( int i = 0 ; i  < 8; i++){
 					// print the rank at the beginning of each row
 					std::cout <<std::right << SPACE << rankStr[i] << std::left;
-					for(int j = (i*8); j < ( (i*8) + 8) ; j++){
+					for(int j = startOfRow; j > startOfRow - 8; j-- ){
 						printPieceBasedOnBitboardsIndex(board,j);
 					}
+					startOfRow+=8;
 					std::cout << std::endl;
 				}
 	}
