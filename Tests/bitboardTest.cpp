@@ -68,11 +68,11 @@ int main(){
 
 	std::cout << "Passed All cassert tests succesfuly!\n";
 
-	std::cout<< "Test 7 ) Printing bitset for all bitboards.\n";
+	std::cout<< "\nTest 7 ) Printing bitset for all bitboards.\nInspect visually.\n";
 	std::cout << "\nWhite Pawns\n";
 	printBitsetNicely(std::bitset<64>(board.getWhitePawns()));
 
-//	std::cout << "\nBlack Pawns\n";
+	std::cout << "\nBlack Pawns\n";
 	printBitsetNicely(std::bitset<64>(board.getBlackPawns()));
 
 	std::cout << "\nWhite Knights\n";
@@ -87,4 +87,11 @@ int main(){
 
 	std::cout << "\nBlack Queens\n";
 	printBitsetNicely(std::bitset<64>(board.getBlackQueens()));
+
+
+	std::cout<<"Test 8 generating pawn moves\n";
+	printBitsetNicely(std::bitset<64>(board.populateWhitePawnMoves()));
+
+	std::cout<< "empty = \n";
+	printBitsetNicely(std::bitset<64>(board.getEmpty()));
 }

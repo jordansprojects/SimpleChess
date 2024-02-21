@@ -15,7 +15,7 @@
 
 typedef unsigned long long U64; /* unsigned 64 bit integer */ 
 
-
+//
 enum Team{
 	WHITE,
 	BLACK,
@@ -52,16 +52,26 @@ enum Squares{
  * and a white team
  * */
 class ChessBoard{
+
 	private:
+
 		/* bitboards for each type of piece */
 		/* note the support for multiple kings of one color - in case some silly varient has it */ 
 		U64 whitePawns, whiteKnights  ,whiteBishops , whiteRooks, whiteQueens,  whiteKings,
 	    	blackPawns, blackKnights, blackBishops,  blackRooks, blackQueens, blackKings, empty;
 
-		std::unordered_map< U64*, std::vector<U64*>> moves = {};
+		std::unordered_map< U64*, std::vector<U64*>> moves = {{}};
+
+		std::unordered_map< int, int> locationMap = {}; // maps index of board to piece on the board
 
 		const int RANK_UNIT = 8; // one step to the next file (AKA row or horizontal line) is 8 bits
 		const int FILE_UNIT = 1; // one step to the next rank (AKA column or vertical line) is 1 bit
+
+
+		enum PieceCode {WPAWN, WKNIGHT, WBISHOP, WROOK, WQUEEN, WKING, BPAWN, BKNIGHT, BBISHOP, BROOK, BQUEEN, BKING  };
+
+		typedef U64 (*PiececentricFunctions)(int index, U64 board);
+
 
 		/* setKthBit - sets the Kth bit to 1.
 		 * Does so by shifting 1 k times  and then perform bitwise OR operation with the number  
@@ -72,12 +82,15 @@ class ChessBoard{
 			return ( ( 1ULL <<  k ) | n );
 		}
 
+		void setLocMap(int index, int piece ){
+			locationMap[index] = piece;
+		}
 
 
 
 	public:
+		friend class ConsoleUI;
 		ChessBoard(){
-			std::cout << "bitboard is init\n";
 			initBoards();
 		}
 		/* move generation code */
@@ -98,28 +111,50 @@ class ChessBoard{
 			/* set up pawn bitboards */
 			for ( int i = A2; i <= H2; i++){
 				whitePawns = setKthBit( whitePawns, i );
+				setLocMap(i, WPAWN);
 				/* 40 is the index distance between the white and black pawns */
 				blackPawns = setKthBit(blackPawns, i + 40 ) ;
+				setLocMap(i + 40, BPAWN);
 			}
 
 			/* set up other bitboards manually 
 			 * we can make nested calls for boards with two pieces of each type*/
 			whiteKnights = setKthBit(setKthBit(whiteKnights, B1), G1);
+			setLocMap(B1 , WKNIGHT);
+			setLocMap(G1 , WKNIGHT);
+
 			blackKnights = setKthBit(setKthBit(blackKnights, B8), G8);
+			setLocMap(B8 , BKNIGHT);
+			setLocMap(G8 , BKNIGHT);
 			
 
-
 			whiteBishops = setKthBit(setKthBit(whiteBishops, C1), F1);
+			setLocMap(C1 , WBISHOP);
+			setLocMap(F1 , WBISHOP);
+
 			blackBishops = setKthBit(setKthBit(blackBishops, C8), F8);
+			setLocMap(C8 , BBISHOP);
+			setLocMap(F8 , BBISHOP);
+
 
 			whiteRooks = setKthBit(setKthBit(whiteRooks, A1), H1);
+			setLocMap(A1 , WROOK);
+			setLocMap(H1 , WROOK);
+
 			blackRooks = setKthBit(setKthBit(blackRooks, A8), H8);
+			setLocMap(A8 , BROOK);
+			setLocMap(H8 , BROOK);
 
 			whiteQueens = setKthBit(whiteQueens, D1);
+			setLocMap(D1 , WQUEEN);
 			blackQueens = setKthBit(blackQueens, D8);
+			setLocMap(D8 , BQUEEN);
+
 
 			whiteKings = setKthBit(whiteKings, E1);
+			setLocMap(E1 , WKING);
 			blackKings = setKthBit(blackKings, E8);
+			setLocMap(E8 , BKING);
 			
 			empty = ~(whitePawns & blackPawns & whiteKnights & blackKnights & whiteBishops & blackBishops &
 					whiteRooks & blackRooks & whiteQueens & blackQueens & whiteKings & blackKings);
@@ -127,15 +162,19 @@ class ChessBoard{
 		}
 
 
+
 		/* move generation methods */
 
 		/**************************
 		 * generates moves for white pawns
-		 * @param bits : the bitset of the desired piece type
-		 * @param vector to store moves from a particular position
 		 */
-		void populateWhitePawnMoves(U64 bits, std::vector<U64*>&v){
-			U64 forwardSteps = ( (bits >> RANK_UNIT) and empty); // bitboard of available moves to the next rank
+		U64 populateWhitePawnMoves(){
+			U64 forwardSteps = ( (whitePawns << 8)); // bitboard of available moves to the next rank
+			return forwardSteps;
+		}
+
+		U64 makeMove(int loc, U64 movesBoard){
+
 		}
 
 		/* bitboard getters */
@@ -187,7 +226,9 @@ class ChessBoard{
 			return blackKings;
 		}
 
-
+		U64 getEmpty(){
+			return empty;
+		}
 		std::vector<U64> getWhite(){
 			return {whitePawns, whiteKnights, whiteBishops, whiteRooks,whiteQueens,whiteKings};
 		}
