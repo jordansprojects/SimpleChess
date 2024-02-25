@@ -10,10 +10,19 @@
  * useful resources:
  * https://pages.cs.wisc.edu/~psilord/blog/data/chess-pages/rep.html
  * https://gekomad.github.io/Cinnamon/BitboardCalculator/   ( we use Layout # 2  )
+ * Chess Programming on YouTube
  *
  * */ 
 
 typedef unsigned long long U64; /* unsigned 64 bit integer */ 
+
+
+// bit manipulation macros : https://www.youtube.com/watch?v=wPr210gVeHI
+
+#define getBit(bitboard, index) (bitboard & (1ULL << index))
+#define setBit(bitboard, index) (bitboard |= (1ULL << index))
+#define popBit(bitboard, index) (getBit(bitboard,index) ? bitboard ^= (1ULL << index): 0)
+
 
 //
 enum Team{
