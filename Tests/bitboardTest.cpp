@@ -1,6 +1,7 @@
 /* bitboardTest.cpp - tests bitboard accuracy */
 
 #include "../BoardRep/bitboard.h"
+#include "../UI/CLI.h" // TO-DO: use CLI ui functions for enahnced visual inspection
 #include <assert.h>
 
 void printBitsetNicely(std::bitset<64> bitboardBitset ){

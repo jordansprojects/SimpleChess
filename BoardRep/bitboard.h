@@ -86,11 +86,11 @@ class ChessBoard{
 		 * Does so by shifting 1 k times  and then perform bitwise OR operation with the number  
 		 * param k: the bit to be set
 		 * param n: the current decimal value of the bitboard
-		 * Reference: https://www.geeksforgeeks.org/set-k-th-bit-given-number*/
-		U64 setKthBit(U64 n, int k){
+		 * Reference: https://www.geeksforgeeks.org/set-k-th-bit-given-number
+		U64 setBit(U64 n, int k){
 			return ( ( 1ULL <<  k ) | n );
 		}
-
+*/
 		void setLocMap(int index, int piece ){
 			locationMap[index] = piece;
 		}
@@ -119,54 +119,72 @@ class ChessBoard{
 			   = blackBishops = whiteRooks = blackRooks = whiteQueens = blackQueens = whiteKings = blackKings = empty = 0;
 			/* set up pawn bitboards */
 			for ( int i = A2; i <= H2; i++){
-				whitePawns = setKthBit( whitePawns, i );
+				// whitePawns = setKthBit( whitePawns, i );
+				setBit(whitePawns,i);
+
 				setLocMap(i, WPAWN);
 				/* 40 is the index distance between the white and black pawns */
-				blackPawns = setKthBit(blackPawns, i + 40 ) ;
+				blackPawns = setBit(blackPawns, i + 40 ) ;
 				setLocMap(i + 40, BPAWN);
 			}
 
 			/* set up other bitboards manually 
 			 * we can make nested calls for boards with two pieces of each type*/
-			whiteKnights = setKthBit(setKthBit(whiteKnights, B1), G1);
+			whiteKnights = setBit(setBit(whiteKnights, B1), G1);
 			setLocMap(B1 , WKNIGHT);
 			setLocMap(G1 , WKNIGHT);
 
-			blackKnights = setKthBit(setKthBit(blackKnights, B8), G8);
+			blackKnights = setBit(setBit(blackKnights, B8), G8);
 			setLocMap(B8 , BKNIGHT);
 			setLocMap(G8 , BKNIGHT);
 			
 
-			whiteBishops = setKthBit(setKthBit(whiteBishops, C1), F1);
+			whiteBishops = setBit(setBit(whiteBishops, C1), F1);
 			setLocMap(C1 , WBISHOP);
 			setLocMap(F1 , WBISHOP);
 
-			blackBishops = setKthBit(setKthBit(blackBishops, C8), F8);
+			blackBishops = setBit(setBit(blackBishops, C8), F8);
 			setLocMap(C8 , BBISHOP);
 			setLocMap(F8 , BBISHOP);
 
 
-			whiteRooks = setKthBit(setKthBit(whiteRooks, A1), H1);
+			whiteRooks = setBit(setBit(whiteRooks, A1), H1);
 			setLocMap(A1 , WROOK);
 			setLocMap(H1 , WROOK);
 
-			blackRooks = setKthBit(setKthBit(blackRooks, A8), H8);
+			blackRooks = setBit(setBit(blackRooks, A8), H8);
 			setLocMap(A8 , BROOK);
 			setLocMap(H8 , BROOK);
 
-			whiteQueens = setKthBit(whiteQueens, D1);
+			whiteQueens = setBit(whiteQueens, D1);
 			setLocMap(D1 , WQUEEN);
-			blackQueens = setKthBit(blackQueens, D8);
+			blackQueens = setBit(blackQueens, D8);
 			setLocMap(D8 , BQUEEN);
 
 
-			whiteKings = setKthBit(whiteKings, E1);
+			whiteKings = setBit(whiteKings, E1);
 			setLocMap(E1 , WKING);
-			blackKings = setKthBit(blackKings, E8);
+			blackKings = setBit(blackKings, E8);
 			setLocMap(E8 , BKING);
 			
 			empty = ~(whitePawns & blackPawns & whiteKnights & blackKnights & whiteBishops & blackBishops &
 					whiteRooks & blackRooks & whiteQueens & blackQueens & whiteKings & blackKings);
+
+		}
+
+		void generateKnightMoves(U64 board){
+			// traverse file by file
+			for (int i = A1; i < H8; i++){
+				if (getBit(board, i) != 0){
+					if (isKnightWithAllTheWorks(i)){
+
+
+					}
+				}
+
+
+			}
+
 
 		}
 
@@ -246,6 +264,27 @@ class ChessBoard{
 			return {blackPawns, blackKnights, blackBishops, blackRooks, blackQueens,blackKings};
 		}
 
+		bool isAtTop(int index ){
+			return (index < A2 );
+		}
+
+		bool isAtBottom(int index){
+			return (index > H7);
+		}
+
+		bool isOnWestCorner(int index){
+			return (index % 8 == 0);
+		}
+
+		/* this means all possible moves are within range
+		 * going off of the index of the knight */
+		bool isKnightWithAllTheWorks(int index){
+			return ( (index  <= B3 && index >= F3)
+					|| (index <= B4 && index >= F4 ) ||
+					(index <= B5 && index >= F5 ) ||
+					(index <= B6  && index >= F6) );
+
+		}
 
 };
 
