@@ -24,7 +24,8 @@ typedef unsigned long long U64; /* unsigned 64 bit integer */
 #define popBit(bitboard, index) (getBit(bitboard,index) ? bitboard ^= (1ULL << index): 0)
 
 
-//
+
+
 enum Team{
 	WHITE,
 	BLACK,
@@ -61,6 +62,36 @@ enum Squares{
  * and a white team
  * */
 class ChessBoard{
+
+	public:
+
+	std::vector<std::pair<int, U64>> generateKnightMoves(U64 board){
+		std::vector<std::pair<int, U64>> moves;
+			for (int i = A1; i < H8; i++){
+				U64 possible = 0;
+				if (getBit(board, i) != 0){
+					if (isKnightWithAllTheWorks(i)){
+						setBit(possible, i + 15); // EXAMPLE
+					}
+					// handle other types of knights here
+				}
+				moves.push_back(std::pair<int, U64>(i , possible));
+
+
+			}
+			return moves;
+		}
+
+
+	/* this means all possible moves are within range
+	 * going off of the index of the knight */
+	bool isKnightWithAllTheWorks(int index){
+		return ( (index  >= C3 && index <= F3)
+				|| (index >= C4 && index <= F4 ) ||
+				(index >= C5 && index <= F5 ) ||
+				(index >= C6  && index <= F6) );
+
+	}
 
 	private:
 
@@ -124,41 +155,41 @@ class ChessBoard{
 
 				setLocMap(i, WPAWN);
 				/* 40 is the index distance between the white and black pawns */
-				blackPawns = setBit(blackPawns, i + 40 ) ;
+				setBit(blackPawns, i + 40 ) ;
 				setLocMap(i + 40, BPAWN);
 			}
 
 			/* set up other bitboards manually 
 			 * we can make nested calls for boards with two pieces of each type*/
-			whiteKnights = setBit(setBit(whiteKnights, B1), G1);
+			setBit(setBit(whiteKnights, B1), G1);
 			setLocMap(B1 , WKNIGHT);
 			setLocMap(G1 , WKNIGHT);
 
-			blackKnights = setBit(setBit(blackKnights, B8), G8);
+			setBit(setBit(blackKnights, B8), G8);
 			setLocMap(B8 , BKNIGHT);
 			setLocMap(G8 , BKNIGHT);
 			
 
-			whiteBishops = setBit(setBit(whiteBishops, C1), F1);
+			setBit(setBit(whiteBishops, C1), F1);
 			setLocMap(C1 , WBISHOP);
 			setLocMap(F1 , WBISHOP);
 
-			blackBishops = setBit(setBit(blackBishops, C8), F8);
+			setBit(setBit(blackBishops, C8), F8);
 			setLocMap(C8 , BBISHOP);
 			setLocMap(F8 , BBISHOP);
 
 
-			whiteRooks = setBit(setBit(whiteRooks, A1), H1);
+			setBit(setBit(whiteRooks, A1), H1);
 			setLocMap(A1 , WROOK);
 			setLocMap(H1 , WROOK);
 
-			blackRooks = setBit(setBit(blackRooks, A8), H8);
+			setBit(setBit(blackRooks, A8), H8);
 			setLocMap(A8 , BROOK);
 			setLocMap(H8 , BROOK);
 
-			whiteQueens = setBit(whiteQueens, D1);
+			setBit(whiteQueens, D1);
 			setLocMap(D1 , WQUEEN);
-			blackQueens = setBit(blackQueens, D8);
+			setBit(blackQueens, D8);
 			setLocMap(D8 , BQUEEN);
 
 
@@ -172,21 +203,6 @@ class ChessBoard{
 
 		}
 
-		void generateKnightMoves(U64 board){
-			// traverse file by file
-			for (int i = A1; i < H8; i++){
-				if (getBit(board, i) != 0){
-					if (isKnightWithAllTheWorks(i)){
-
-
-					}
-				}
-
-
-			}
-
-
-		}
 
 
 
@@ -200,9 +216,6 @@ class ChessBoard{
 			return forwardSteps;
 		}
 
-		U64 makeMove(int loc, U64 movesBoard){
-
-		}
 
 		/* bitboard getters */
 		U64 getWhitePawns(){
@@ -276,15 +289,6 @@ class ChessBoard{
 			return (index % 8 == 0);
 		}
 
-		/* this means all possible moves are within range
-		 * going off of the index of the knight */
-		bool isKnightWithAllTheWorks(int index){
-			return ( (index  <= B3 && index >= F3)
-					|| (index <= B4 && index >= F4 ) ||
-					(index <= B5 && index >= F5 ) ||
-					(index <= B6  && index >= F6) );
-
-		}
 
 };
 
