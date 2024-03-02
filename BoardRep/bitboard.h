@@ -1,5 +1,6 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
+#include "Types.h"
 #include <string>
 #include <unordered_map> /* keep track of moves for a particular position */
 #include <vector>
@@ -24,74 +25,11 @@ typedef unsigned long long U64; /* unsigned 64 bit integer */
 #define popBit(bitboard, index) (getBit(bitboard,index) ? bitboard ^= (1ULL << index): 0)
 
 
-
-
-enum Team{
-	WHITE,
-	BLACK,
-};
-
-enum Pieces {
-	EMPTY, 		// 0 
-	PAWN, 		// 1
-	KNIGHT,		// 2
-	BISHOP,		// 3 
-	ROOK,		// 4 
-	QUEEN,		// 5
-	KING		// 6
-};
-
-/******************************************************************
- * Indexes of squares on the board
- * this may seem like overkill, but it is 
- * convenient to refer to an index as its chess coordinate 
- * Note that this view is the perspective of the black player
- ******************************************************************/
-enum Squares{
-		A1, B1, C1, D1, E1, F1, G1, H1,  // 00 01 02 03 04 05 06 07
-		A2, B2, C2, D2, E2, F2, G2, H2,  // 08 09 10 11 12 13 14 15
-		A3, B3, C3, D3, E3, F3, G3, H3,  // 16 17 18 19 20 21 22 23
-		A4, B4, C4, D4, E4, F4, G4, H4,  // 24 25 26 27 28 29 30 31
-		A5, B5, C5, D5, E5, F5, G5, H5,  // 32 33 34 35 36 37 38 39
-		A6, B6, C6, D6, E6, F6, G6, H6,  // 40 41 42 43 44 45 46 47
-		A7, B7, C7, D7, E7, F7, G7, H7,  // 48 49 50 51 52 53 54 55
-		A8, B8, C8, D8, E8, F8, G8, H8 };// 56 57 58 59 60 61 62 63
-
-
 /* This is a standard chess board that assumes an 8x8 board and a black team
  * and a white team
  * */
 class ChessBoard{
 
-	public:
-
-	std::vector<std::pair<int, U64>> generateKnightMoves(U64 board){
-		std::vector<std::pair<int, U64>> moves;
-			for (int i = A1; i < H8; i++){
-				U64 possible = 0;
-				if (getBit(board, i) != 0){
-					if (isKnightWithAllTheWorks(i)){
-						setBit(possible, i + 15); // EXAMPLE
-					}
-					// handle other types of knights here
-				}
-				moves.push_back(std::pair<int, U64>(i , possible));
-
-
-			}
-			return moves;
-		}
-
-
-	/* this means all possible moves are within range
-	 * going off of the index of the knight */
-	bool isKnightWithAllTheWorks(int index){
-		return ( (index  >= C3 && index <= F3)
-				|| (index >= C4 && index <= F4 ) ||
-				(index >= C5 && index <= F5 ) ||
-				(index >= C6  && index <= F6) );
-
-	}
 
 	private:
 
@@ -133,12 +71,6 @@ class ChessBoard{
 		ChessBoard(){
 			initBoards();
 		}
-		/* move generation code */
-		void generateRookMoves();
-		void generateBishopMoves();
-		void generateKnightMoves();
-		void generateQueenMoves();
-		void generatePawnMoves();
 
 		/* set up the initial bitboard states */
 		/* NOTE: I could have used std::bitset::set() for setting
@@ -155,7 +87,7 @@ class ChessBoard{
 
 				setLocMap(i, WPAWN);
 				/* 40 is the index distance between the white and black pawns */
-				setBit(blackPawns, i + 40 ) ;
+				setBit(blackPawns, (i + 40) ) ;
 				setLocMap(i + 40, BPAWN);
 			}
 
@@ -193,29 +125,15 @@ class ChessBoard{
 			setLocMap(D8 , BQUEEN);
 
 
-			whiteKings = setBit(whiteKings, E1);
+			setBit(whiteKings, E1);
 			setLocMap(E1 , WKING);
-			blackKings = setBit(blackKings, E8);
+			setBit(blackKings, E8);
 			setLocMap(E8 , BKING);
 			
 			empty = ~(whitePawns & blackPawns & whiteKnights & blackKnights & whiteBishops & blackBishops &
 					whiteRooks & blackRooks & whiteQueens & blackQueens & whiteKings & blackKings);
 
 		}
-
-
-
-
-		/* move generation methods */
-
-		/**************************
-		 * generates moves for white pawns
-		 */
-		U64 populateWhitePawnMoves(){
-			U64 forwardSteps = ( (whitePawns << 8)); // bitboard of available moves to the next rank
-			return forwardSteps;
-		}
-
 
 		/* bitboard getters */
 		U64 getWhitePawns(){
