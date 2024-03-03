@@ -1,11 +1,11 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
-#include "Types.h"
 #include <string>
 #include <unordered_map> /* keep track of moves for a particular position */
 #include <vector>
 #include <iostream> /* for quick debug */
 #include<bitset>
+#include "types.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * useful resources:
@@ -17,9 +17,7 @@
 
 typedef unsigned long long U64; /* unsigned 64 bit integer */ 
 
-
 // bit manipulation macros : https://www.youtube.com/watch?v=wPr210gVeHI
-
 #define getBit(bitboard, index) (bitboard & (1ULL << index))
 #define setBit(bitboard, index) (bitboard |= (1ULL << index))
 #define popBit(bitboard, index) (getBit(bitboard,index) ? bitboard ^= (1ULL << index): 0)
@@ -30,36 +28,20 @@ typedef unsigned long long U64; /* unsigned 64 bit integer */
  * */
 class ChessBoard{
 
-
 	private:
-
 		/* bitboards for each type of piece */
 		/* note the support for multiple kings of one color - in case some silly varient has it */ 
 		U64 whitePawns, whiteKnights  ,whiteBishops , whiteRooks, whiteQueens,  whiteKings,
 	    	blackPawns, blackKnights, blackBishops,  blackRooks, blackQueens, blackKings, empty;
 
 		std::unordered_map< U64*, std::vector<U64*>> moves = {{}};
-
 		std::unordered_map< int, int> locationMap = {}; // maps index of board to piece on the board
 
 		const int RANK_UNIT = 8; // one step to the next file (AKA row or horizontal line) is 8 bits
 		const int FILE_UNIT = 1; // one step to the next rank (AKA column or vertical line) is 1 bit
 
-
-		enum PieceCode {WPAWN, WKNIGHT, WBISHOP, WROOK, WQUEEN, WKING, BPAWN, BKNIGHT, BBISHOP, BROOK, BQUEEN, BKING  };
-
 		typedef U64 (*PiececentricFunctions)(int index, U64 board);
 
-
-		/* setKthBit - sets the Kth bit to 1.
-		 * Does so by shifting 1 k times  and then perform bitwise OR operation with the number  
-		 * param k: the bit to be set
-		 * param n: the current decimal value of the bitboard
-		 * Reference: https://www.geeksforgeeks.org/set-k-th-bit-given-number
-		U64 setBit(U64 n, int k){
-			return ( ( 1ULL <<  k ) | n );
-		}
-*/
 		void setLocMap(int index, int piece ){
 			locationMap[index] = piece;
 		}
@@ -80,19 +62,15 @@ class ChessBoard{
 			/* set bitboards to zero*/
 			whitePawns = blackPawns = whiteKnights = blackKnights = whiteBishops
 			   = blackBishops = whiteRooks = blackRooks = whiteQueens = blackQueens = whiteKings = blackKings = empty = 0;
+
 			/* set up pawn bitboards */
 			for ( int i = A2; i <= H2; i++){
-				// whitePawns = setKthBit( whitePawns, i );
 				setBit(whitePawns,i);
-
 				setLocMap(i, WPAWN);
-				/* 40 is the index distance between the white and black pawns */
 				setBit(blackPawns, (i + 40) ) ;
 				setLocMap(i + 40, BPAWN);
 			}
 
-			/* set up other bitboards manually 
-			 * we can make nested calls for boards with two pieces of each type*/
 			setBit(setBit(whiteKnights, B1), G1);
 			setLocMap(B1 , WKNIGHT);
 			setLocMap(G1 , WKNIGHT);
@@ -206,8 +184,6 @@ class ChessBoard{
 		bool isOnWestCorner(int index){
 			return (index % 8 == 0);
 		}
-
-
 };
 
 #endif

@@ -16,6 +16,19 @@ enum Pieces {
 	QUEEN,		// 5
 	KING		// 6
 };
+enum PieceCode {
+	WPAWN,
+	WKNIGHT,
+	WBISHOP,
+	WROOK,
+	WQUEEN,
+	WKING,
+	BPAWN,
+	BKNIGHT,
+	BBISHOP,
+	BROOK,
+	BQUEEN,
+	BKING  };
 
 /******************************************************************
  * Indexes of squares on the board
