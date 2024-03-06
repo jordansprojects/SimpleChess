@@ -9,19 +9,20 @@ using namespace std;
 
 
 int main(){
+	ConsoleUI ui;
 	ChessBoard board;
 	int who = WHITE;
 	bool gameOn = true;
 	string moveStr;
 	while( gameOn ){
-		printBoard(board,who);
+		ui.printBoard(board,who);
 		cout << "Player " << who <<" :  Make your move : ";
 		getline(cin, moveStr);
 
 		if ( moveStr == "resign"){
 			gameOn = false;
 		}
-		else if (parseMove(moveStr, board)){
+		else if (ui.parseMove(moveStr, board)){
 			who = (who == WHITE)? BLACK: WHITE;
 		}
 	} // end of game loop

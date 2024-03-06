@@ -13,6 +13,10 @@ void printBitsetNicely(std::bitset<64> bitboardBitset ){
 	std:: cout << '\n';
 }
 
+void testFunc(U64 bitboard){
+	// does nothing yet . just for testing the passing of functions
+}
+
 int main(){
 
 	/* desired outcomes are determined by using Layout 2  on this website :  https://gekomad.github.io/Cinnamon/BitboardCalculator/ */
@@ -89,10 +93,10 @@ int main(){
 	std::cout << "\nBlack Queens\n";
 	printBitsetNicely(std::bitset<64>(board.getBlackQueens()));
 
-
-	std::cout<<"Test 8 generating pawn moves\n";
-	printBitsetNicely(std::bitset<64>(board.populateWhitePawnMoves()));
-
 	std::cout<< "empty = \n";
 	printBitsetNicely(std::bitset<64>(board.getEmpty()));
+
+	std::cout << "Test iterate over bits function";
+	board.iterateOverBits(testFunc);
+
 }

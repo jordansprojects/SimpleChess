@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream> /* for quick debug */
 #include<bitset>
+#include <functional>
 #include "types.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -183,6 +184,18 @@ class ChessBoard{
 
 		bool isOnWestCorner(int index){
 			return (index % 8 == 0);
+		}
+
+		void iterateOverBits (std::function <void (U64)> testFunc){
+			// iterates over bitboard
+			std::cout<< "you passed in board\n";
+			U64 word =  this->blackBishops;
+			while(word != 0){
+				auto lsb = word & -word;
+				word^=lsb;
+				std::cout << "lsb = " << lsb << std::endl;
+			}
+
 		}
 };
 
