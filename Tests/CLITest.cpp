@@ -22,7 +22,8 @@ int main(){
 	printBanner("Testing Unicode Symbol Printing", SPACING);
 	cout<< setw(SPACING+7) << " (Console must support unicode symbols)\n";
 	cout<< setw(SPACING+7) << " (Guidance to be supplied in near future)\n";
-	runTestOnAllPieces<string>(ui.getSymbol);
+
+	runTestOnAllPieces<string>(&ui.getSymbol);
 
 
 

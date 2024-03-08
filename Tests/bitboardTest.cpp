@@ -4,6 +4,8 @@
 #include "../UI/CLI.h" // TO-DO: use CLI ui functions for enahnced visual inspection
 #include <assert.h>
 
+
+//TO DO: make this less stupid by using better iteration techniques
 void printBitsetNicely(std::bitset<64> bitboardBitset ){
 	for ( int i = 0 ; i < 64 ; i++){
 		if (i > 0 && i % 8 == 0 )
@@ -13,8 +15,9 @@ void printBitsetNicely(std::bitset<64> bitboardBitset ){
 	std:: cout << '\n';
 }
 
-void testFunc(U64 bitboard){
-	// does nothing yet . just for testing the passing of functions
+void testBitIterationFunc(U64 board) {
+	printBitsetNicely(board);
+	std::cout << '\n';
 }
 
 int main(){
@@ -96,7 +99,10 @@ int main(){
 	std::cout<< "empty = \n";
 	printBitsetNicely(std::bitset<64>(board.getEmpty()));
 
-	std::cout << "Test iterate over bits function";
-	board.iterateOverBits(testFunc);
+	std::cout << "Test iterate over bits function\n";
+
+	std::cout << "Printing white pawns\n";
+	board.iterateOverBits(board.getWhitePawns(), testBitIterationFunc);
+
 
 }

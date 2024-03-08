@@ -1,43 +1,22 @@
 #ifndef CLI_H
 #define CLI_H
 #include "../BoardRep/bitboard.h"
+#include"CLITypes.h"
+
 #include <iostream>
 #include <sstream>
 #include <algorithm> // for reverse()
 #include <stdexcept>
 #include <bitset>
 #include <iomanip>
-#include <string>
-#include <string_view> // for an immutable string
+
 
 /*********************************
  * Simple Console UI
  *********************************/
 class ConsoleUI {
 private:
-	/* function prototypes */
 	bool parseMove(std::string);
-	static std::string getUnicode(int, int );
-
-	/* unicode symbols for chess pieces and pawns */
-	static constexpr std::string_view whitePawnUnicode = "\u2659";
-	static constexpr std::string_view blackPawnUnicode = "\u265F";
-	static constexpr std::string_view whiteKnightUnicode = "\u2658";
-	static constexpr std::string_view blackKnightUnicode = "\u265E";
-	static constexpr std::string_view whiteBishopUnicode = "\u2657";
-	static constexpr std::string_view blackBishopUnicode = "\u265D";
-	static constexpr std::string_view whiteRookUnicode = "\u2656";
-	static constexpr std::string_view blackRookUnicode = "\u265C";
-	static constexpr std::string_view whiteQueenUnicode= "\u2655";
-	static constexpr std::string_view blackQueenUnicode =  "\u265B";
-	static constexpr std::string_view whiteKingUnicode = "♔" ;
-	static constexpr std::string_view blackKingUnicode =  "\u265A" ;
-
-
-	std::vector<std::string_view> symbols = { whitePawnUnicode, whiteKnightUnicode, whiteBishopUnicode, whiteRookUnicode, whiteQueenUnicode, whiteKingUnicode,blackPawnUnicode , blackKnightUnicode, blackBishopUnicode, blackRookUnicode, blackQueenUnicode , blackKingUnicode};
-	// space per piece
-	static constexpr std::string_view SPACE = "	";
-
 
 public:
 	/* ************************************************************
@@ -45,7 +24,7 @@ public:
 	 * @param  team ( Only black and white are supported )
 	 * @param  piece
 	 * ************************************************************/
-/*	std::string getUnicode(int team, int piece ){
+	 static std::string getUnicode(int team, int piece ){
 		std::stringstream ss;
 		if ( piece < EMPTY || piece > KING){
 			throw "CLI.h: Invalid piece Index provided. Must be value between 1 - 6 inclusive.\n";
@@ -67,7 +46,7 @@ public:
 		}
 
 		return ss.str();
-	}*/
+	}
 	
 	/****
 	 * Checks all boards and prints the corresponding unicode symbol based on
@@ -77,7 +56,17 @@ public:
 	 *  @param i : index to check
 	 */
 	void printPieceBasedOnBitboardsIndex(ChessBoard board,int i){
-		std:: cout << symbols[board.locationMap[i]];
+		// change this entirely or account for empty spots in location map
+			std:: cout << symbols[board.locationMap[i]];
+
+	}
+
+	static std::string getSymbol(int team, int piece){
+		if (team == BLACK ){
+			piece += BPAWN;
+		}
+		std::cout << symbols[piece];
+		return "";
 	}
 
 	/*

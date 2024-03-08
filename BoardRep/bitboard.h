@@ -186,14 +186,15 @@ class ChessBoard{
 			return (index % 8 == 0);
 		}
 
-		void iterateOverBits (std::function <void (U64)> testFunc){
+		void iterateOverBits (U64 board, std::function <void (U64)> testFunc){
 			// iterates over bitboard
 			std::cout<< "you passed in board\n";
-			U64 word =  this->blackBishops;
+			U64 word =  board;
 			while(word != 0){
 				auto lsb = word & -word;
+				testFunc(lsb);
 				word^=lsb;
-				std::cout << "lsb = " << lsb << std::endl;
+
 			}
 
 		}
