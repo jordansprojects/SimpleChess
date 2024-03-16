@@ -126,7 +126,7 @@ class ChessBoard{
 		}
 
 		U64 getKnights(){
-			return blackKnights & whiteKnights;
+			return (blackKnights | whiteKnights);
 		}
 
 		U64 getBlackKnights(){
@@ -169,11 +169,11 @@ class ChessBoard{
 			return empty;
 		}
 		U64 getWhite(){
-			return whitePawns & whiteKnights & whiteBishops & whiteRooks & whiteQueens & whiteKings;
+			return (whitePawns | whiteKnights | whiteBishops | whiteRooks | whiteQueens | whiteKings);
 		}
 
 		U64 getBlack(){
-			return blackPawns & blackKnights &  blackBishops &  blackRooks & blackQueens & blackKings;
+			return (blackPawns | blackKnights | blackBishops |  blackRooks | blackQueens | blackKings);
 		}
 
 };

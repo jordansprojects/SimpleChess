@@ -36,3 +36,6 @@
 .cproject
 .settings/
 .project
+
+#VS Code Stuff
+.vscode

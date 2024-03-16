@@ -90,6 +90,10 @@ int main(){
 	std::cout<< "empty = \n";
 	BitFuncs::printBitsNicely((board.getEmpty()));
 
+	std::cout<< "All White Pieces = \n";
+	BitFuncs::printBitsNicely((board.getWhite()));
+
+
 	std::cout << "Test iterate over bits function\n";
 
 	std::cout << "Printing white pawns\n";
@@ -101,7 +105,7 @@ int main(){
 	std::cout<< "Pieces in these squares cannot have -10 moves\n";
 	BitFuncs::printBitsNicely(noMin10);
 
-	std::cout<< "Pieces in these squares cannot have +10 moves\n";
+	std::cout<< "Pieces in these squares cannot have +10 moves or -6 moves \n";
 	BitFuncs::printBitsNicely(noPlus10);
 
 	std::cout<< "Pieces in these squares cannot have -15 (or -17) moves \n";
@@ -114,8 +118,6 @@ int main(){
 	std::cout<< "Pieces in these squares cannot have +6  moves\n";
 	BitFuncs::printBitsNicely(noPlus6);
 
-	std::cout<< "Pieces in these squares cannot have -6  moves\n";
-	BitFuncs::printBitsNicely(noMin6);
 	
 	std::cout<< "Max rank \n";
 	BitFuncs::printBitsNicely(maxRank);
@@ -124,16 +126,37 @@ int main(){
 	BitFuncs::printBitsNicely(minRank);
 
 
-	std::cout << "Testing move generation (may need to be adjusted)\n";
+	// TO-DO give move generation its own test suite
+	// TO-DO create test tools file for all test suites to use 
+	std::cout << "Testing move generation\n";
 
 	std::cout << "Generating all knights by finding them on the Location Map\n";
 	for( auto pair : board.getLocMap()){
-		if( pair.second == WKNIGHT || pair.second == BKNIGHT){
-			auto moves = generateKnightMoves(board.getWhiteKnights(), pair.first);
+		
+		U64 pieces = 0,sameTeam = 0;
+		bool isKnight =  (pair.second == BKNIGHT || pair.second == WKNIGHT);
+		if(isKnight){
+			std::cout<< "[ " << pair.first << " , " << pair.second << " ]\n";
+			if( pair.second == WKNIGHT){
+				std::cout<<"White Knight";
+				pieces = board.getWhiteKnights();
+				sameTeam = board.getWhite();
+				
+			}
+			else if( pair.second == BKNIGHT){
+				std::cout << "Black Knight";
+				pieces = board.getBlackKnights();
+				sameTeam = board.getBlack();
+			}
+			std::cout << "\nMove generation, taking blocking pieces of same team into account\n";
+			auto moves = generateKnightMoves(pieces, pair.first, sameTeam);
+			BitFuncs::printBitsNicely(moves, pair.first);
+			
+			std::cout << "\nMove generation, ignoring pieces of same team\n";
+			moves = generateKnightMoves(pieces, pair.first);
 			BitFuncs::printBitsNicely(moves, pair.first);
 			std:: cout << '\n';
 		}
-
 	}
 
 }

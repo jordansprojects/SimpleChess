@@ -75,6 +75,7 @@ void printBitsNicely(U64 board, int perspectivePiece){
 			}
 			
 		}
+		std:: cout << '\n';
 }
 
 }
