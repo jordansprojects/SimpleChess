@@ -4,21 +4,12 @@
 #include "../UI/CLI.h" // TO-DO: use CLI ui functions for enahnced visual inspection
 #include <assert.h>
 
-
-//TO DO: make this less stupid by using better iteration techniques
-void printBitsetNicely(std::bitset<64> bitboardBitset ){
-	for ( int i = 0 ; i < 64 ; i++){
-		if (i > 0 && i % 8 == 0 )
-					std::cout << '\n';
-		std::cout << bitboardBitset[i] << " ";
-	}
-	std:: cout << '\n';
-}
-
-void testBitIterationFunc(U64 board) {
-	printBitsetNicely(board);
+void testBitIterFunc(U64 board) {
+	BitFuncs::printBitsNicely(board);
 	std::cout << '\n';
 }
+
+
 
 int main(){
 
@@ -78,31 +69,64 @@ int main(){
 
 	std::cout<< "\nTest 7 ) Printing bitset for all bitboards.\nInspect visually.\n";
 	std::cout << "\nWhite Pawns\n";
-	printBitsetNicely(std::bitset<64>(board.getWhitePawns()));
+	BitFuncs::printBitsNicely((board.getWhitePawns()));
 
 	std::cout << "\nBlack Pawns\n";
-	printBitsetNicely(std::bitset<64>(board.getBlackPawns()));
+	BitFuncs::printBitsNicely(board.getBlackPawns());
 
 	std::cout << "\nWhite Knights\n";
-	printBitsetNicely(std::bitset<64>(board.getWhiteKnights()));
+	BitFuncs::printBitsNicely((board.getWhiteKnights()));
 
 	std::cout << "\nBlack Knights\n";
-	printBitsetNicely(std::bitset<64>(board.getBlackKnights()));
+	BitFuncs::printBitsNicely((board.getBlackKnights()));
 
 
 	std::cout << "\nWhite Queens\n";
-	printBitsetNicely(std::bitset<64>(board.getWhiteQueens()));
+	BitFuncs::printBitsNicely((board.getWhiteQueens()));
 
 	std::cout << "\nBlack Queens\n";
-	printBitsetNicely(std::bitset<64>(board.getBlackQueens()));
+	BitFuncs::printBitsNicely((board.getBlackQueens()));
 
 	std::cout<< "empty = \n";
-	printBitsetNicely(std::bitset<64>(board.getEmpty()));
+	BitFuncs::printBitsNicely((board.getEmpty()));
 
 	std::cout << "Test iterate over bits function\n";
 
 	std::cout << "Printing white pawns\n";
-	board.iterateOverBits(board.getWhitePawns(), testBitIterationFunc);
+	BitFuncs::iterateOverBits(board.getWhitePawns(), testBitIterFunc);
 
+	std::cout << "Testing the initialization of move generation boundaries\n";
+	initBoundaries();
+
+	std::cout<< "Pieces in these squares cannot have -10 moves\n";
+	BitFuncs::printBitsNicely(noMin10);
+
+	std::cout<< "Pieces in these squares cannot have +10 moves\n";
+	BitFuncs::printBitsNicely(noPlus10);
+
+	std::cout<< "Pieces in these squares cannot have -15 (or -17) moves \n";
+	BitFuncs::printBitsNicely(noMin15);
+
+	std::cout<< "Pieces in these squares cannot have +15 (or +17) moves\n";
+	BitFuncs::printBitsNicely(noPlus15);
+
+
+	std::cout<< "Pieces in these squares cannot have +6  moves\n";
+	BitFuncs::printBitsNicely(noPlus6);
+
+	std::cout<< "Pieces in these squares cannot have -6  moves\n";
+	BitFuncs::printBitsNicely(noMin6);
+	
+	std::cout << "Testing move generation (may need to be adjusted)\n";
+
+	std::cout << "Generating all knights by finding them on the Location Map\n";
+	for( auto pair : board.getLocMap()){
+		if( pair.second == WKNIGHT || pair.second == BKNIGHT){
+			auto moves = generateKnightMoves(board.getKnights(), pair.first);
+			BitFuncs::printBitsNicely(moves, pair.first);
+			std:: cout << '\n';
+		}
+
+	}
 
 }

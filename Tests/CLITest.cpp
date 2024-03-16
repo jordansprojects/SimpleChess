@@ -37,7 +37,7 @@ int main(){
 
 	cout << "\n\n";
 
-return 0;
+return 0; 
 }
 
 /**************************************************
@@ -50,7 +50,7 @@ void runTestOnAllPieces(function <T (int, int)> testFunc){
 	std::string teamStrings [] = {"white", "black"};
 	for ( int team = WHITE ; team <=BLACK; team++){
 		cout<< "\nPrinting for team " << teamStrings[team] << ":";//
-		for ( int piece = EMPTY; piece <= KING; piece++){
+		for ( int piece = PAWN; piece <= KING; piece++){
 			cout<< setw(spacing) << testFunc(team, piece);
 		} 
 	}

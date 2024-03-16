@@ -7,7 +7,7 @@ CXXFLAGS = -Wall -pedantic -Ofast -std=c++1z
 LIB = -lm
 LDFLAGS = -L.
 PROG =  gameCLI bitboardTest CLITest # target executables
-SRCS = Tests/game.cpp Tests/bitboardTest.cpp UI/CLI.h BoardRep/types.h BoardRep/bitboard.h 
+SRCS = Tests/game.cpp Tests/bitboardTest.cpp UI/CLI.h BoardRep/types.h BoardRep/bitboard.h BoardRep/bitmanip.h
 OBJ = $(SRCS:.cpp=.o) # object files for the target
 DEPS = $(SRCS:.cpp=.d) 
 
@@ -32,4 +32,5 @@ CLITest: Tests/CLITest.o UI/CLI.o
 
 clean:
 	rm -f *.o $(PROG)
+	find . -name '*.o' -type f -delete
 	

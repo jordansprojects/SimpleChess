@@ -10,44 +10,13 @@
 #include <bitset>
 #include <iomanip>
 
+// TODO:  change this to not be a class but instead a namespace including free functions
 
-/*********************************
- * Simple Console UI
- *********************************/
 class ConsoleUI {
 private:
 	bool parseMove(std::string);
 
 public:
-	/* ************************************************************
-	 * Returns desired unicode value for each piece and color
-	 * @param  team ( Only black and white are supported )
-	 * @param  piece
-	 * ************************************************************/
-	 static std::string getUnicode(int team, int piece ){
-		std::stringstream ss;
-		if ( piece < EMPTY || piece > KING){
-			throw "CLI.h: Invalid piece Index provided. Must be value between 1 - 6 inclusive.\n";
-		}
-
-		if (piece == EMPTY ){
-			return "_";
-		}
-
-		// this math works for producing the correct unicode number, but there is more
-		// complexity to actually producing the correct encoded data .
-		// that remains a TODO in this project.
-
-		if ( team == WHITE){
-			ss <<  (2654 +  ( (piece - KING) *-1 ));
-
-		}else if (team == BLACK){
-			ss << 265 << char('A' + ( (piece - KING) *-1 ));
-		}
-
-		return ss.str();
-	}
-	
 	/****
 	 * Checks all boards and prints the corresponding unicode symbol based on
 	 * whether or not a particular bit in a particular bitboard has been set
@@ -63,7 +32,7 @@ public:
 
 	static std::string getSymbol(int team, int piece){
 		if (team == BLACK ){
-			piece += BPAWN;
+			piece += WKING;
 		}
 		std::cout << symbols[piece];
 		return "";
@@ -88,6 +57,8 @@ public:
 				 * row is reversed as well - otherwise the board does
 				 * not appear properly rotated 180 degrees */
 				for(int j = (63 - i * 8) - 7 ; j < (64 - i * 8) ; j++ ){
+					//std::cout << SPACE << '\n';
+					std::cout<< SPACE ;
 					printPieceBasedOnBitboardsIndex(board,j);
 				}
 				std::cout << std::endl;
@@ -99,6 +70,7 @@ public:
 						// print the rank at the beginning of each row
 						std::cout <<std::right << SPACE << rankStr[i] << std::left;
 						for(int j = startOfRow; j > startOfRow - 8; j-- ){
+							std::cout<< SPACE ;
 							printPieceBasedOnBitboardsIndex(board,j);
 						}
 						startOfRow+=8;
@@ -115,14 +87,6 @@ public:
 	}
 	
 
-
-
-	/*
-	 *  parses move string.
-	 *
-	 *  @return false if  move selection failed
-	 *
-	 */
 	bool parseMove(std::string move, ChessBoard cb){
 		// pawn move
 		std::transform(move.begin(), move.end(), move.begin(), [](unsigned char c) { return std::tolower(c); });
@@ -165,6 +129,43 @@ public:
 
 		return true;
 	}
+
+
+
+
+
+
+
+
+	/*************************************************************
+	 * Returns desired unicode value for each piece and color
+	 * @param  team ( Only black and white are supported )
+	 * @param  piece
+	 * ************************************************************/
+	 static std::string getUnicode(int team, int piece ){
+		std::stringstream ss;
+		if ( piece < EMPTY || piece > KING){
+			throw "CLI.h: Invalid piece Index provided. Must be value between 1 - 6 inclusive.\n";
+		}
+
+		if (piece == EMPTY ){
+			return "_";
+		}
+
+		// this math works for producing the correct unicode number, but there is more
+		// complexity to actually producing the correct encoded data .
+		// that remains a TODO in this project.
+
+		if ( team == WHITE){
+			ss <<  (2654 +  ( (piece - KING) *-1 ));
+
+		}else if (team == BLACK){
+			ss << 265 << char('A' + ( (piece - KING) *-1 ));
+		}
+
+		return ss.str();
+	}
+
 
 }; //end of ConsoleUI class
 #endif

@@ -2,13 +2,14 @@
 #define TYPES_H
 
 
+
 enum Team{
 	WHITE,
 	BLACK,
 };
 
 enum Pieces {
-	EMPTY, 		// 0
+	EMPTY,
 	PAWN, 		// 1
 	KNIGHT,		// 2
 	BISHOP,		// 3
@@ -17,6 +18,7 @@ enum Pieces {
 	KING		// 6
 };
 enum PieceCode {
+	NONE,
 	WPAWN,
 	WKNIGHT,
 	WBISHOP,
@@ -28,11 +30,11 @@ enum PieceCode {
 	BBISHOP,
 	BROOK,
 	BQUEEN,
-	BKING  };
+	BKING,
+	};
 
 /******************************************************************
  * Indexes of squares on the board
- * Note that this view is the perspective of the black player
  ******************************************************************/
 enum Squares{
 		A1, B1, C1, D1, E1, F1, G1, H1,  // 00 01 02 03 04 05 06 07
@@ -43,6 +45,7 @@ enum Squares{
 		A6, B6, C6, D6, E6, F6, G6, H6,  // 40 41 42 43 44 45 46 47
 		A7, B7, C7, D7, E7, F7, G7, H7,  // 48 49 50 51 52 53 54 55
 		A8, B8, C8, D8, E8, F8, G8, H8 };// 56 57 58 59 60 61 62 63
+
 
 
 

@@ -16,9 +16,12 @@
 	static constexpr std::string_view blackQueenUnicode =  "\u265B";
 	static constexpr std::string_view whiteKingUnicode = "♔" ;
 	static constexpr std::string_view blackKingUnicode =  "\u265A" ;
+	static constexpr std::string_view emptyUnicode =  ".";
 
 
-	std::vector<std::string_view> symbols = { whitePawnUnicode, whiteKnightUnicode, whiteBishopUnicode, whiteRookUnicode, whiteQueenUnicode, whiteKingUnicode,blackPawnUnicode , blackKnightUnicode, blackBishopUnicode, blackRookUnicode, blackQueenUnicode , blackKingUnicode};
+	std::vector<std::string_view> symbols = { emptyUnicode, whitePawnUnicode, whiteKnightUnicode, whiteBishopUnicode,
+	 whiteRookUnicode, whiteQueenUnicode, whiteKingUnicode,blackPawnUnicode , blackKnightUnicode, 
+	 blackBishopUnicode, blackRookUnicode, blackQueenUnicode , blackKingUnicode};
 	// space per piece
-	static constexpr std::string_view SPACE = "	";
+	static constexpr std::string_view SPACE = " ";
 #endif
