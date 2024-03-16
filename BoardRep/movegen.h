@@ -26,33 +26,40 @@ void initBoundaries(){
 }
 
 U64 generateKnightMoves(U64 board, int index, U64 same =0){
-    std::cout <<"DEBUG: knight at index " << index << " has the moves ...";
+    std::cout <<"DEBUG: knight at index " << index << " \n";
     U64 knight = BitFuncs::getBit(board,index);
+    std::cout<< "DEBUG. Printing knight\n";
+    BitFuncs::printBitsNicely(knight);
     U64 moves = 0; 
+    
 
-    if( (knight & maxRank) != maxRank){
-        if ( (knight & noPlus10) != noPlus10){
+    if( (knight | maxRank) != maxRank){
+        if ( (knight | noPlus10) != noPlus10){
             BitFuncs::setBit(moves, index + 10);
             std::cout << index + 10 << " ";
-            if ( (knight & noPlus6) != noPlus6){
+            if ( (knight | noPlus6) != noPlus6){
                 BitFuncs::setBit(moves, index + 6);
                 std::cout << index + 6 << " ";
             }
         }
-         if ( (knight & noPlus15) != noPlus15){
+         if ( (knight | noPlus15) != noPlus15){
             BitFuncs::setBit(moves, index + 15);
            // BitFuncs::setBit(moves, index + 17);
             std::cout << index + 15 << " ";
 
         }
-    } else if( (knight & minRank) !=  minRank){
-        if ( (knight & noMin10) != noMin10){
-             BitFuncs::setBit(moves, index - 10);
-            if ( (knight & noMin6) != noMin6){
+    } if( (knight | minRank) !=  minRank){
+        std::cout << "DEBUG: not in the min rank\n";
+          if ( (knight | noMin6) != noMin6){
+            std::cout<< index - 6 << " ";
                 BitFuncs::setBit(moves, index - 6);
+
+            if ( (knight | noMin10) != noMin10){
+                BitFuncs::setBit(moves, index - 10);
+            
             }
-        }
-        if ( (knight & noMin15) != noMin15){
+          }
+        if ( (knight | noMin15) != noMin15){
             BitFuncs::setBit(moves, index - 15);
             //BitFuncs::setBit(moves, index - 17);
         }

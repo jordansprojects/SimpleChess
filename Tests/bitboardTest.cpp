@@ -117,12 +117,19 @@ int main(){
 	std::cout<< "Pieces in these squares cannot have -6  moves\n";
 	BitFuncs::printBitsNicely(noMin6);
 	
+	std::cout<< "Max rank \n";
+	BitFuncs::printBitsNicely(maxRank);
+
+	std::cout<< "Min rank \n";
+	BitFuncs::printBitsNicely(minRank);
+
+
 	std::cout << "Testing move generation (may need to be adjusted)\n";
 
 	std::cout << "Generating all knights by finding them on the Location Map\n";
 	for( auto pair : board.getLocMap()){
 		if( pair.second == WKNIGHT || pair.second == BKNIGHT){
-			auto moves = generateKnightMoves(board.getKnights(), pair.first);
+			auto moves = generateKnightMoves(board.getWhiteKnights(), pair.first);
 			BitFuncs::printBitsNicely(moves, pair.first);
 			std:: cout << '\n';
 		}
