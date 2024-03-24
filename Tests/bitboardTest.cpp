@@ -10,7 +10,6 @@ void testBitIterFunc(U64 board) {
 }
 
 
-
 int main(){
 
 	/* desired outcomes are determined by using Layout 2  on this website :  https://gekomad.github.io/Cinnamon/BitboardCalculator/ */
@@ -35,16 +34,12 @@ int main(){
 	const U64 WHITEKINGS = 16ULL;
 	const U64 BLACKKINGS= 1152921504606846976ULL;
 
-	/* verify constants */
-
-
 	// create chessboard
 	ChessBoard board;
 	// check if bitboard values are valid upon initialization
 	std::cout << "Test 1 ) checking if initial pawn bitboards are correct...\n";
 	assert (WHITEPAWNS == board.getWhitePawns());
 	assert (BLACKPAWNS == board.getBlackPawns());
-//
 	std::cout << "Test 2 ) checking if initial knight bitboards are correct...\n";
 	assert (WHITEKNIGHTS == board.getWhiteKnights());
 	assert (BLACKKNIGHTS == board.getBlackKnights());

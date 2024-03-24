@@ -99,7 +99,21 @@ public:
 
 			}
 		}else if (move.length() == 3 ){
-			switch(move[0]){
+
+			if(move[1] < 'a' || move[1] > 'h'){
+				std::cout << "Invalid move\n";
+				return false;
+			}
+			if(move[2] < '1' || move[2] > '8'){
+				return false;
+			}
+
+		}else{
+			std::cout << "Invalid move.\n";
+			return false;
+		}
+
+		switch(move[0]){
 			case 'r': case 'R': // rook move
 				break;
 			case 'q': case'Q':  // queen move
@@ -114,18 +128,6 @@ public:
 				std::cout << "Invalid move\n";
 				return false ;
 			}
-			if(move[1] < 'a' || move[1] > 'h'){
-				std::cout << "Invalid move\n";
-				return false;
-			}
-			if(move[2] < '1' || move[2] > '8'){
-				return false;
-			}
-
-		}else{
-			std::cout << "Invalid move.\n";
-			return false;
-		}
 
 		return true;
 	}
