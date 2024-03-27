@@ -124,6 +124,7 @@ public:
 				break;
 			case 'k': case 'K': // king move
 				break;
+			
 			default:
 				std::cout << "Invalid move\n";
 				return false ;
