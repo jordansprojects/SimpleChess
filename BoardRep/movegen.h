@@ -60,5 +60,15 @@ U64 generateKnightMoves(U64 board, int index, U64 same =0){
     return moves;
 }
 
+U64 generateKnightMoves(ChessBoard board, int index, int team){
+    if( team == WHITE){
+        return generateKnightMoves(board.getWhiteKnights(), index, board.getWhite());
+
+    } else if (team == BLACK){
+         return generateKnightMoves(board.getBlackKnights(), index, board.getBlack());
+
+    }
+}
+
 
 #endif

@@ -23,8 +23,6 @@ int main(){
             i++;
         }    
     }
-
-
     cout << "String to index converston pasts passed\n";
 
     
