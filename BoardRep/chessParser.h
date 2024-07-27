@@ -25,17 +25,10 @@ int getIndex(char file, char rank ){
 }
 
 /*
-@param string moveToken: 
+@param string moveToken:token in algebriac notation 
 @param ChessBoard board:
-@param int team:
-    Parser that can interpret token in algebriac, long algebriac,
-    reversible algebriac, descriptive, and smith notation  
-
-    If performance becomes an issue, it may be better to have different parsers
-    that can be configured (Ex user wants to use long algebriac) but if it is 
-    fairly inexpensive to support all - that will be the plan
-
-@ return true if move is valid, false if it is not 
+@param int team
+@return true if move is valid, false if it is not 
 */
 bool parse(std::string moveToken, ChessBoard board, int team){
     U64 moves;
@@ -47,8 +40,9 @@ bool parse(std::string moveToken, ChessBoard board, int team){
         case 3: // piece move in algebriac notation
             piece = moveToken[0];
             if(piece == 'k' || piece == 'K'){
-                moves = generateKnightMoves(board,getIndex(moveToken[1], moveToken[2]), team);
-                selected = (team  == WHITE )? board.getWhiteKnights() : board.getBlackKnights();
+                // TODO: update this to call the method diferently.
+		// moves = generateKnightMoves(board,getIndex(moveToken[1], moveToken[2]), team);
+		selected = (team  == WHITE )? board.getWhiteKnights() : board.getBlackKnights();
             }
         break;
         case 4:

@@ -1,11 +1,12 @@
 #ifndef MOVEGEN_H
+#define MOVEGEN_H
 #include "bitmanip.h"
 
 U64 minRank = 0, maxRank = 0, noMin10 = 0, noPlus10 = 0,
 noMin15 = 0, noPlus15 = 0 , noMin6 = 0, noPlus6= 0;
 
 void initBoundaries(){
-     //TO-DO assess these and minimize unnecessary iterations
+     // todo:  assess these and minimize unnecessary iterations
     BitFuncs::iterateOverRank(minRank, A1, BitFuncs::setBit);
     BitFuncs::iterateOverRank(maxRank, A8, BitFuncs::setBit);
 
@@ -27,8 +28,15 @@ void initBoundaries(){
     noMin6 = noPlus10;
 
 }
+/**********************
+ * @param board 
+ * @param index
+ * @param same the U64 representing squares taken by current team
+ * @ return the U64 bitboard containing all possible knight  moves
+ * */
 
-U64 generateKnightMoves(U64 board, int index, U64 same =0){
+// todo: remove param to check if the same team is there? probably should be handled somewhere else
+U64 generateKnightMoves(const U64 board, int index, U64 same =0){
     U64 knight = BitFuncs::getBit(board,index);
     U64 moves = 0; 
     if( (knight | maxRank) != maxRank){
@@ -59,16 +67,5 @@ U64 generateKnightMoves(U64 board, int index, U64 same =0){
     moves = ( moves ^ (moves & same) ); // optional prevention of moving ontop of pieces on same team
     return moves;
 }
-
-U64 generateKnightMoves(ChessBoard board, int index, int team){
-    if( team == WHITE){
-        return generateKnightMoves(board.getWhiteKnights(), index, board.getWhite());
-
-    } else if (team == BLACK){
-         return generateKnightMoves(board.getBlackKnights(), index, board.getBlack());
-
-    }
-}
-
 
 #endif

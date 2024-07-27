@@ -55,7 +55,7 @@ class ChessBoard{
 		}
 		/* set up the initial bitboard states */
 		/* NOTE: I could have used std::bitset::set() for setting
-		 * bits on teh bitboard instead; but this works too.
+		 * bits on the bitboard instead; but this works too.
 		 */
 		void initBoards(){
 			/* set bitboards to zero*/
