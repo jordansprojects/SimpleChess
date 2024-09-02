@@ -15,22 +15,27 @@ namespace SimpleChess{
 		A7, B7, C7, D7, E7, F7, G7, H7,  // 48 49 50 51 52 53 54 55
 		A8, B8, C8, D8, E8, F8, G8, H8 };// 56 57 58 59 60 61 62 63	
 
-	constexpr int northWe = 7, nort = 8, noEa = 9,
-		  west = -1, east = 1, soWe = -9, 
-		  south = -8, soEa = -7, noNoWe = 15,
-		  noNoEa=17, noWeWe=6, soWeWe=-10,
-		  soSoWe=-17, soSoEa=-15, soEaEa=-6,
-		  noEaEa=10;
+
+	// right shifts (+)
+	constexpr int northWe = 7, nort = 8, noEa = 9, east = 1,
+	// Knight Directions
+	noNoWe = 15, noNoEa=17, noWeWe=6, noEaEa=10;
+
+	// left shifts (-)
+	constexpr int west = 1, soWe = 9, south = 8, soEa = 7,
+	// Knight Directions 
+	soSoWe = 17, soSoEa = 15, soEaEa = 6, soWeWe = 10;
 
 	U64 getBit(U64 board, int index);
 	U64 setBit(U64 board, int index); // non-void setter in case we want a copy of the newly set bit
+	U64 popBit(U64 board);
 
 	class Bitboard{
 	std::vector<std::stack<U64>> boardStates;
 	U64 getKingMoves(U64 board);
 	U64 getWhitePawnMoves(U64 board);
 	U64 getBlackPawnMoves(U64 board);
-	U64 getKnightMoves(U64 board);
+	U64* getKnightMoves(U64 board);
 	U64 getBishopMoves(U64 board);
 	U64 getRookMoves(U64 board);
 	U64 getQueenMoves(U64 board);

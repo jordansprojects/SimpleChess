@@ -9,6 +9,31 @@ using namespace SimpleChess;
         return  ( board |= ( 1ULL << index ));
     }
 
+    U64 popBit(U64 board, int index ){
+        return ( ( board & ( 1ULL << index ) ) ? board ^= (1ULL << index): 0);
+    }
+
+    // accepts knight bitboard and returns array of 
+    // movement maps for each knight
+    U64* Bitboard::getKnightMoves(U64 board){
+        while(board != 0){
+            U64 map = 0;
+            // TO-DO : Remove popped bit from board
+            U64 lsb = board & -board;
+            // TO-DO:  Detect over/underflow and don't add it to the map
+            map |= (lsb >> noNoWe );
+            map |= (lsb >> noEaEa);
+            map |= (lsb >> noNoEa);
+            map |= (lsb >> noWeWe);
+            map |= (lsb << soEaEa);
+            map |= (lsb << soSoEa);
+            map |= (lsb << soSoWe);
+            map |= (lsb << soWeWe);
+        }
+        return nullptr;
+
+    }
+
     U64 Bitboard::getKingMoves(U64 board){
         return 0;
     }
@@ -16,10 +41,6 @@ using namespace SimpleChess;
         return 0;
     }
     U64 Bitboard::getBlackPawnMoves(U64 board){
-        return 0;
-
-    }
-    U64 Bitboard::getKnightMoves(U64 board){
         return 0;
 
     }
@@ -33,5 +54,4 @@ using namespace SimpleChess;
     }
     U64 Bitboard::getQueenMoves(U64 board){
         return 0;
-
     }
