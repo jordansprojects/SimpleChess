@@ -4,7 +4,7 @@
 #ifndef GAMEMASTER_H
 #define GAMEMASTER_H
 #include "../headers/bitboard.h"
-#include <stack>
+
 
 
 
