@@ -21,6 +21,8 @@ using namespace SimpleChess;
             // TO-DO : Remove popped bit from board
             U64 lsb = board & -board;
             // TO-DO:  Detect over/underflow and don't add it to the map
+
+            // TO-DO : Look into parallel prefix way of doing this : https://www.chessprogramming.org/Parallel_Prefix_Algorithms
             map |= (lsb >> noNoWe );
             map |= (lsb >> noEaEa);
             map |= (lsb >> noNoEa);
