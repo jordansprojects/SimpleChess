@@ -9,7 +9,7 @@ SET(CMAKE_CXX_FLAGS  "-Ofast -Wall -pedantic")
 
 add_library(bitboard  app/src/main/cpp/bitboard.cpp)
 
-
+#TO-DO: Update this to use the new way of doing things.
 include(FetchContent)
 FetchContent_Declare(
   googletest

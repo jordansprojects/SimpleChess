@@ -2,6 +2,7 @@
 #define BITBOARD_H
 #include <vector>
 #include <stack>
+#include <string>
 namespace SimpleChess{
 	typedef unsigned long long U64;
 
@@ -16,11 +17,11 @@ namespace SimpleChess{
 		A7, B7, C7, D7, E7, F7, G7, H7,  // 48 49 50 51 52 53 54 55
 		A8, B8, C8, D8, E8, F8, G8, H8 };// 56 57 58 59 60 61 62 63
 
-		constexpr U64 A_FILE = 0x0101010101010101;
-		constexpr U64 H_FILE = 0x8080808080808080;
-		constexpr U64 RANK_1 = 0x00000000000000FF;
-		constexpr U64 RANK_8 = 0xFF00000000000000;
-		constexpr U64 A1_H8_DIAGONAL =0x8040201008040201;
+	constexpr U64 A_FILE = 0x0101010101010101;
+	constexpr U64 H_FILE = 0x8080808080808080;
+	constexpr U64 RANK_1 = 0x00000000000000FF;
+	constexpr U64 RANK_8 = 0xFF00000000000000;
+	constexpr U64 A1_H8_DIAGONAL =0x8040201008040201;
 
 	// right shifts (+)
 	constexpr int noWe = 7, nort = 8, noEa = 9, east = 1,
@@ -37,15 +38,20 @@ namespace SimpleChess{
 	U64 popBit(U64 board);
 	U64 setBits(U64 board, std::vector<int> &indicies);
 
+	std::vector<U64> getKingMoves(U64 board);
+	std::vector<U64> getWhitePawnMoves(U64 board);
+	std::vector<U64> getBlackPawnMoves(U64 board);
+	std::vector<U64> getKnightMoves(U64 board);
+	std::vector<U64>getBishopMoves(U64 board);
+	std::vector<U64> getRookMoves(U64 board);
+	std::vector<U64> getQueenMoves(U64 board);
+
+	// Convert bitboard to string
+	std::string toString(U64 board, std::string symbol);
+
 	class Bitboard{
 	std::vector<std::stack<U64>> boardStates;
-	U64 getKingMoves(U64 board);
-	U64 getWhitePawnMoves(U64 board);
-	U64 getBlackPawnMoves(U64 board);
-	U64* getKnightMoves(U64 board);
-	U64 getBishopMoves(U64 board);
-	U64 getRookMoves(U64 board);
-	U64 getQueenMoves(U64 board);
+
 	};
 
 }

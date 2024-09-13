@@ -1,4 +1,6 @@
 #include "../headers/bitboard.h"
+#include <cmath>
+
 namespace SimpleChess{
 
     U64 getBit(U64 board, int index){
@@ -10,8 +12,8 @@ namespace SimpleChess{
     }
 
     U64 setBits(U64 board, std::vector<int> &indicies){
-        for (int i = 0; i < indicies.size() ; i++){
-            board = ( board |= ( 1ULL << indicies[i] ));
+        for (long unsigned int i = 0; i < indicies.size() ; i++){
+            board |= ( 1ULL << indicies[i] );
         }
         return board;
     }
@@ -22,16 +24,15 @@ namespace SimpleChess{
 
     // accepts knight bitboard and returns array of 
     // movement maps for each knight
-    U64* Bitboard::getKnightMoves(U64 board){
+    std::vector<U64> getKnightMoves(U64 board){
+        std::vector<U64> moveMaps;
         while(board != 0){
             U64 map = 0;
-            // TO-DO : Remove popped bit from board
             U64 lsb = board & -board;
-            int i  =
+            int index = board & (0- board);
+            board = popBit(board, index);
             // TO-DO:  Detect over/underflow and don't add it to the map
-
             // TO-DO : Look into parallel prefix way of doing this : https://www.chessprogramming.org/Parallel_Prefix_Algorithms
-
             map |= (lsb >> noNoWe );
             map |= (lsb >> noEaEa);
             map |= (lsb >> noNoEa);
@@ -40,31 +41,46 @@ namespace SimpleChess{
             map |= (lsb << soSoEa);
             map |= (lsb << soSoWe);
             map |= (lsb << soWeWe);
+            moveMaps.emplace_back(map);
         }
-        return nullptr;
-
+        return moveMaps;
     }
 
-    U64 Bitboard::getKingMoves(U64 board){
-        return 0;
+    std::vector<U64> getKingMoves(U64 board){
+        std::vector<U64> moveMaps;
+        return moveMaps;
     }
-    U64 Bitboard::getWhitePawnMoves(U64 board){
-        return 0;
+    std::vector<U64> getWhitePawnMoves(U64 board){
+        std::vector<U64> moveMaps;
+        return moveMaps;
     }
-    U64 Bitboard::getBlackPawnMoves(U64 board){
-        return 0;
+    std::vector<U64> getBlackPawnMoves(U64 board){
+        std::vector<U64> moveMaps;
+        return moveMaps;
 
     }
-    U64 Bitboard::getBishopMoves(U64 board){
-        return 0;
+    std::vector<U64> getBishopMoves(U64 board){
+        std::vector<U64> moveMaps;
+        return moveMaps;
 
     }
-    U64 Bitboard::getRookMoves(U64 board){
-        return 0;
+    std::vector<U64> getRookMoves(U64 board){
+        std::vector<U64> moveMaps;
+        return moveMaps;
 
     }
-    U64 Bitboard::getQueenMoves(U64 board){
-        return 0;
+    std::vector<U64> getQueenMoves(U64 board){
+        std::vector<U64> moveMaps;
+        return moveMaps;
     }
 
+    std::string toString(U64 board, std::string symbol){
+        std::string boardStr = "";
+        for(int i = 0; i < 64; i++){
+            boardStr += (getBit(board,i) > 0 )? symbol : "_";
+        }
+        return boardStr;
+    }
 }
+
+
