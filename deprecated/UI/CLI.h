@@ -1,7 +1,7 @@
 #ifndef CLI_H
 #define CLI_H
 #include "../BoardRep/bitboard.h"
-#include"CLITypes.h"
+// #include"CLITypes.h"
 
 #include <iostream>
 #include <sstream>

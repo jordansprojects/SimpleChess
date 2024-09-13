@@ -1,3 +1,5 @@
+//TO-DO : Store these in a better way
+
 #ifndef CLI_TYPES_H
 #define CLI_TYPES_H
 #include <string>
@@ -20,7 +22,7 @@
 
 
 	std::vector<std::string_view> symbols = { emptyUnicode, whitePawnUnicode, whiteKnightUnicode, whiteBishopUnicode,
-	 whiteRookUnicode, whiteQueenUnicode, whiteKingUnicode,blackPawnUnicode , blackKnightUnicode, 
+	 whiteRookUnicode, whiteQueenUnicode, whiteKingUnicode,blackPawnUnicode , blackKnightUnicode,
 	 blackBishopUnicode, blackRookUnicode, blackQueenUnicode , blackKingUnicode};
 	// space per piece
 	static constexpr std::string_view SPACE = " ";

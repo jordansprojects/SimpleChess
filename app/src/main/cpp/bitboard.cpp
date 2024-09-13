@@ -1,5 +1,5 @@
 #include "../headers/bitboard.h"
-using namespace SimpleChess;
+namespace SimpleChess{
 
     U64 getBit(U64 board, int index){
         return ( board & ( 1ULL << index ));
@@ -7,6 +7,13 @@ using namespace SimpleChess;
     // non-void setter in case we want a copy of the newly set bit
    U64 setBit(U64 board, int index){
         return  ( board |= ( 1ULL << index ));
+    }
+
+    U64 setBits(U64 board, std::vector<int> &indicies){
+        for (int i = 0; i < indicies.size() ; i++){
+            board = ( board |= ( 1ULL << indicies[i] ));
+        }
+        return board;
     }
 
     U64 popBit(U64 board, int index ){
@@ -20,9 +27,11 @@ using namespace SimpleChess;
             U64 map = 0;
             // TO-DO : Remove popped bit from board
             U64 lsb = board & -board;
+            int i  =
             // TO-DO:  Detect over/underflow and don't add it to the map
 
             // TO-DO : Look into parallel prefix way of doing this : https://www.chessprogramming.org/Parallel_Prefix_Algorithms
+
             map |= (lsb >> noNoWe );
             map |= (lsb >> noEaEa);
             map |= (lsb >> noNoEa);
@@ -57,3 +66,5 @@ using namespace SimpleChess;
     U64 Bitboard::getQueenMoves(U64 board){
         return 0;
     }
+
+}

@@ -35,6 +35,7 @@ namespace SimpleChess{
 	U64 getBit(U64 board, int index);
 	U64 setBit(U64 board, int index); // non-void setter in case we want a copy of the newly set bit
 	U64 popBit(U64 board);
+	U64 setBits(U64 board, std::vector<int> &indicies);
 
 	class Bitboard{
 	std::vector<std::stack<U64>> boardStates;
