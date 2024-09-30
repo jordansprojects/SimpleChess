@@ -17,5 +17,4 @@ using namespace SimpleChess;
         std::vector<U64> moves = getKnightMoves(knights);
         ASSERT_GT(moves.size(),0);
 
-
     }

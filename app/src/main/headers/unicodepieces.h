@@ -1,8 +1,9 @@
-//TO-DO : Store these in a better way
+
 #ifndef UNICODEPIECES__H
 #define UNICODEPIECES__H
 #include <string>
 #include <vector>
+
 	/* unicode symbols for chess pieces and pawns */
 	const std::string whitePawnUnicode = "\u2659";
 	const std::string blackPawnUnicode = "\u265F";
@@ -17,6 +18,7 @@
 	const std::string whiteKingUnicode = "♔" ;
 	const std::string  blackKingUnicode =  "\u265A" ;
 	const std::string  emptyUnicode =  ".";
+
 
 #endif
 

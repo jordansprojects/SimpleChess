@@ -23,14 +23,12 @@ namespace SimpleChess{
 	constexpr U64 RANK_8 = 0xFF00000000000000;
 	constexpr U64 A1_H8_DIAGONAL =0x8040201008040201;
 
-	// right shifts (+)
+	// Right shifts (+)
 	constexpr int noWe = 7, nort = 8, noEa = 9, east = 1,
-	// Knight Directions
 	noNoWe = 15, noNoEa=17, noWeWe=6, noEaEa=10;
 
-	// left shifts (-)
+	// Left shifts (-)
 	constexpr int west = 1, soWe = 9, south = 8, soEa = 7,
-	// Knight Directions 
 	soSoWe = 17, soSoEa = 15, soEaEa = 6, soWeWe = 10;
 
 	U64 getBit(U64 board, int index);

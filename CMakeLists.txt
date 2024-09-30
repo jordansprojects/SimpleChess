@@ -4,8 +4,8 @@ project(SimpleChess)
 # GoogleTest requires at least C++14
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-SET(CMAKE_CXX_FLAGS  "-Ofast -Wall -pedantic")
-
+set(CMAKE_CXX_FLAGS  "-Ofast -Wall -pedantic")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_library(bitboard  app/src/main/cpp/bitboard.cpp)
 
@@ -24,6 +24,10 @@ enable_testing()
 add_executable(
   basic_bitboard_test
   app/src/test/cpp/basic_bitboard_test.cpp
+  app/src/main/cpp/bitboard.cpp
+)
+add_executable(play_test
+  app/src/test/cpp/playtest.cpp
   app/src/main/cpp/bitboard.cpp
 )
 

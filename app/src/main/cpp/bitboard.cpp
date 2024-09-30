@@ -6,11 +6,10 @@ namespace SimpleChess{
     U64 getBit(U64 board, int index){
         return ( board & ( 1ULL << index ));
     }
-    // non-void setter in case we want a copy of the newly set bit
-   U64 setBit(U64 board, int index){
+
+    U64 setBit(U64 board, int index){ // non-void setter in case we want a copy of the newly set bit
         return  ( board |= ( 1ULL << index ));
     }
-
     U64 setBits(U64 board, std::vector<int> &indicies){
         for (long unsigned int i = 0; i < indicies.size() ; i++){
             board |= ( 1ULL << indicies[i] );
@@ -22,8 +21,10 @@ namespace SimpleChess{
         return ( ( board & ( 1ULL << index ) ) ? board ^= (1ULL << index): 0);
     }
 
-    // accepts knight bitboard and returns array of 
-    // movement maps for each knight
+    /* @brief Calculates knight moves
+     * @param board The bitboard containing knight bits
+     * @return vector of possible moves for each bit
+     */
     std::vector<U64> getKnightMoves(U64 board){
         std::vector<U64> moveMaps;
         while(board != 0){
