@@ -17,7 +17,10 @@
 	const std::string  blackQueenUnicode =  "\u265B";
 	const std::string whiteKingUnicode = "♔" ;
 	const std::string  blackKingUnicode =  "\u265A" ;
-	const std::string  emptyUnicode =  ".";
+
+	const std::vector<std::string> whiteUnicodePieces = {whitePawnUnicode, whiteKnightUnicode,whiteBishopUnicode,whiteRookUnicode,whiteQueenUnicode,whiteKingUnicode};
+
+	const std::vector<std::string> blackUnicodePieces = {blackPawnUnicode, blackKnightUnicode,blackBishopUnicode,blackRookUnicode,blackQueenUnicode,blackKingUnicode};
 
 
 #endif

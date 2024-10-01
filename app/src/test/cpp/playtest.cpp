@@ -1,5 +1,6 @@
 #include "../../main/headers/bitboard.h"
 #include "../../main/headers/unicodepieces.h"
+#include "../../main/headers/chessdisplay.h"
 #include <iostream>
 using namespace std;
 int main(){
