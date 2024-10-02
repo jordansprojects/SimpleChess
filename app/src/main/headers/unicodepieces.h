@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-	/* unicode symbols for chess pieces and pawns */
 	const std::string whitePawnUnicode = "\u2659";
 	const std::string blackPawnUnicode = "\u265F";
 	const std::string whiteKnightUnicode = "\u2658";
@@ -18,9 +17,8 @@
 	const std::string whiteKingUnicode = "♔" ;
 	const std::string  blackKingUnicode =  "\u265A" ;
 
-	const std::vector<std::string> whiteUnicodePieces = {whitePawnUnicode, whiteKnightUnicode,whiteBishopUnicode,whiteRookUnicode,whiteQueenUnicode,whiteKingUnicode};
+	const std::vector<std::string> UNICODE_PIECES = {whitePawnUnicode, whiteKnightUnicode,whiteBishopUnicode,whiteRookUnicode,whiteQueenUnicode,whiteKingUnicode,blackPawnUnicode, blackKnightUnicode,blackBishopUnicode,blackRookUnicode,blackQueenUnicode,blackKingUnicode};
 
-	const std::vector<std::string> blackUnicodePieces = {blackPawnUnicode, blackKnightUnicode,blackBishopUnicode,blackRookUnicode,blackQueenUnicode,blackKingUnicode};
 
 
 #endif

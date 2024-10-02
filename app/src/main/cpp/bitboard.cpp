@@ -32,16 +32,16 @@ namespace SimpleChess{
             U64 lsb = board & -board;
             int index = board & (0- board);
             board = popBit(board, index);
-            // TO-DO:  Detect over/underflow and don't add it to the map
             // TO-DO : Look into parallel prefix way of doing this : https://www.chessprogramming.org/Parallel_Prefix_Algorithms
-            map |= (lsb >> noNoWe );
-            map |= (lsb >> noEaEa);
-            map |= (lsb >> noNoEa);
-            map |= (lsb >> noWeWe);
-            map |= (lsb << soEaEa);
-            map |= (lsb << soSoEa);
-            map |= (lsb << soSoWe);
-            map |= (lsb << soWeWe);
+            // These probably need to be double checked when Im not so tired : https://www.chessprogramming.org/Knight_Pattern
+            map |= ((lsb >> noNoWe) & (!H_FILE));
+            map |= ((lsb >> noEaEa) & (!(A_FILE & B_FILE)));
+            map |= ((lsb >> noNoEa) & (!A_FILE));
+            map |= (lsb >> noWeWe) & (!H_FILE & !G_FILE) ;
+            map |= ((lsb << soEaEa) & (!(A_FILE & B_FILE)));
+            map |= ((lsb << soSoEa) & (!A_FILE)) ;
+            map |= (lsb << soSoWe) & (!H_FILE);
+            map |= ((lsb << soWeWe) & (!H_FILE & !G_FILE));
             moveMaps.emplace_back(map);
         }
         return moveMaps;

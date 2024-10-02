@@ -1,4 +1,5 @@
 #include "../headers/chessdisplay.h"
+#include <bit>
 /*
  * @brief Creates bitboard string to match updated bitboard states
  * @param boards vector of bitboards in the order <determine order specification here>
@@ -8,14 +9,13 @@ std::string createChessboard(std::vector<U64> boards){
     std::string boardStr(64, '_');
     for(int i = 0 ; i < boards.size(); i++){
         U64 currentBoard = boards[i];
-        int lsb = currentBoard & 1;
-        // modify
-        popBit(currentBoard, lsb);
-
-
+        while (currentBoard != 0){
+            int bitIndex = std::countr_zero(currentBoard);
+            boardStr[index] = UNICODE_PIECES[i];
+            currentBoard  = popBit(currentBoard, bitIndex);
+        }
     }
     return boardStr;
-
 }
 
 /*

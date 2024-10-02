@@ -1,4 +1,4 @@
-// defaultboards.h - Made the most sense to define these if most games will start this way
+
 #ifndef DEFAULTS_H
 #define DEFAULTS_H
 
@@ -16,8 +16,6 @@ enum Squares{
     A7, B7, C7, D7, E7, F7, G7, H7,  // 48 49 50 51 52 53 54 55
     A8, B8, C8, D8, E8, F8, G8, H8 };// 56 57 58 59 60 61 62 63
 
-    constexpr U64 A_FILE = 0x0101010101010101;
-    constexpr U64 H_FILE = 0x8080808080808080;
     constexpr U64 RANK_1 = 0x00000000000000FF;
     constexpr U64 RANK_8 = 0xFF00000000000000;
     constexpr U64 A1_H8_DIAGONAL =0x8040201008040201;
@@ -30,12 +28,22 @@ enum Squares{
     constexpr int west = 1, soWe = 9, south = 8, soEa = 7,
     soSoWe = 17, soSoEa = 15, soEaEa = 6, soWeWe = 10;
 
+
+    // Useful for filtering out invalid moves along board edges
+    constexpr U64 A_FILE = 0x0101010101010101;
+    constexpr U64 H_FILE = 0x8080808080808080;
+    constexpr U64 B_FILE =  0 | ( 1ULL << B1 ) | ( 1ULL << B2 ) |( 1ULL << B3 ) | ( 1ULL << B4) | ( 1ULL << B5) | ( 1ULL << B6)| ( 1ULL << B7 | ( 1ULL << B8) )  ;
+    constexpr U64 G_FILE =  0 | ( 1ULL << G1 ) | ( 1ULL << G2 ) |( 1ULL << G3 ) | ( 1ULL << G4) | ( 1ULL << G5) | ( 1ULL << G6)| ( 1ULL << G7 | ( 1ULL << G8) )  ;
+
+    // Made the most sense to hardcode these constants if most games will start this way
+    constexpr U64  WHITE_PAWNS_DEFAULT   = 0 | ( 1ULL << A2 ) | ( 1ULL << B2 ) |( 1ULL << C2 ) | ( 1ULL << D2 ) | ( 1ULL << E2 ) | ( 1ULL << F2 ) | ( 1ULL << G2 ) | ( 1ULL << H2 );
     constexpr U64  WHITE_KNIGHTS_DEFAULT = 0 | ( 1ULL << B1 ) | ( 1ULL << G1 );
     constexpr U64  WHITE_BISHOPS_DEFAULT = 0 | ( 1ULL << F1 ) | ( 1ULL << C1 );
     constexpr U64  WHITE_ROOKS_DEFAULT   = 0 | ( 1ULL << H1 ) | ( 1ULL << A1 );
     constexpr U64  WHITE_QUEEN_DEFAULT   = 0 | ( 1ULL << D1 );
     constexpr U64  WHITE_KING_DEFAULT    = 0 | ( 1ULL << E1 );
 
+    constexpr U64  BLACK_PAWNS_DEFAULT   = 0 | ( 1ULL << A7 ) | ( 1ULL << B7 ) |( 1ULL << C7 ) | ( 1ULL << D7 ) | ( 1ULL << E7 ) | ( 1ULL << F7 ) | ( 1ULL << G7 ) | ( 1ULL << H7 );
     constexpr U64  BLACK_KNIGHTS_DEFAULT = 0 | ( 1ULL << B8 ) | ( 1ULL << G8 );
     constexpr U64  BLACK_BISHOPS_DEFAULT = 0 | ( 1ULL << F8 ) | ( 1ULL << C8 );
     constexpr U64  BLACK_ROOKS_DEFAULT   = 0 | ( 1ULL << H8 ) | ( 1ULL << A8 );
